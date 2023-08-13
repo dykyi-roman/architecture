@@ -4,8 +4,7 @@
 CQRS takes the defining principle of [CQS](cqs.md).
 CQRS stands for Command and Query Responsibility Segregation, a pattern that separates read and write operations for a data store.
 In traditional architectures, the same data model is used to query and update a database. 
-That's simple and works well for basic CRUD operations. 
-In more complex applications, however, this approach can become unwieldy. 
+That's simple and works well for basic CRUD operations. In more complex applications, however, this approach can become unwieldy. 
 For example, on the read side, the application may perform many different queries, returning data transfer objects (DTOs) with different shapes.
 Object mapping can become complicated. On the write side, the model may implement complex validation and business logic. 
 As a result, you can end up with an overly complex model that does too much.
@@ -21,7 +20,18 @@ On microservice level use [database per service pattern](https://microservices.i
 
 ### [CQR or CQRS](cqs_cqrs.md)
 
-### Summary
+### When to use CQRS pattern
+* In event sourcing, when you have a complex or hard business domain
+* In large team - You can split development tasks between people easily if you have chosen CQRS architecture
+* When we have difficult business logic - CQRS forces you to avoid mixing domain logic and infrastructural operations
+* Collaborative domains where many users access the same data in parallel
+* Querying between microservices. It help to avoid complex queries to get rid of inefficient joins
+* Scenarios where performance of data reads must be fine-tuned separately from performance of data writes
+* Scenarios where one team of developers can focus on the complex domain model that is part of the write model, and another team can focus on the read model and the user interfaces
+* Integration with other systems, especially in combination with event sourcing, where the temporal failure of one subsystem shouldn't affect the availability of the others
+
+### Summary 
+* CQRS is not a pattern that encompasses the whole application. It is a concept that builds on Domain Driven Design [DDD](https://learn.microsoft.com/ru-ru/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/apply-simplified-microservice-cqrs-ddd-patterns).
 * CQRS provides us a convenient way to select separate domain models appropriate for write and read operations; we don't have to create a complex domain model supporting both
 * It helps us to select repositories that are individually suited for handling the complexities of the read and write operations, like high throughput for writing and low latency for reading
 * The complex business logic goes into the write model. The read model can be simple.
