@@ -1,13 +1,15 @@
 # Software Architectural Patterns
 
 An architectural pattern is a general, reusable resolution to a commonly occurring problem in software architecture within a given context.
+Pattern is an implementation that solves a particular problem. A principle is an abstraction, a guide to design.
 
-## Patterns
 * [CQR](cqs.md)
 * [CQRS](cqrs.md)
 * [Hexagonal](hexagonal.md)
+* [Onion](onion.md)
+* [DDD](ddd.md)
 
-## Good architecture principles
+## Principles
 * Durability
 * Scalability
 * Flexibility

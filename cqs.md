@@ -2,8 +2,8 @@
 
 ## CQS
 The fundamental idea is that we should divide an object's methods into two sharply separated categories:
-* Queries: Return a result and do not change the observable state of the system (are free of side effects).
-* Commands: Change the state of a system but do not return a value.
+* Queries: Return a result and do not change the observable state of the system (are free of side effects)
+* Commands: Change the state of a system but do not return a value
 
 A high-level overview of an application built using the CQS pattern. 
 A physical separation is possible and allows you to scale up on both “read” and “write” sides.
@@ -13,9 +13,9 @@ But, this is fairly complex and leans more to [CQRS](cqrs.md)
 ### [CQR or CQRS](cqs_cqrs.md)
  
 ### Summary
-* This reduces bugs, improves readability, and makes code more testable.
-* It encourages you to write better code, that follows SOLID principles and allows the introduction of (better and more) Unit Testing.
-* CQS is well-suited towards complex domains where Domain-Driven Design is most useful.
+* This reduces bugs, improves readability, and makes code more testable
+* It encourages you to write better code, that follows SOLID principles and allows the introduction of (better and more) Unit Testing
+* CQS is well-suited towards complex domains where Domain-Driven Design is most useful
 
 #### CQS in CRUD
 * Commands: Create, Update, Delete
