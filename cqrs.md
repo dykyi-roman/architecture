@@ -20,7 +20,7 @@ On microservice level use [database per service pattern](https://microservices.i
 
 ### [CQR or CQRS](cqs_cqrs.md)
 
-### When to use
+### When to apply
 * In event sourcing, when you have a complex or hard business domain
 * In large team - You can split development tasks between people easily if you have chosen CQRS architecture
 * When we have difficult business logic - CQRS forces you to avoid mixing domain logic and infrastructural operations

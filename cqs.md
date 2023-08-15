@@ -14,7 +14,7 @@ But, this is fairly complex and leans more to [CQRS](cqrs.md)
  
 ### Summary
 * This reduces bugs, improves readability, and makes code more testable
-* It encourages you to write better code, that follows SOLID principles and allows the introduction of (better and more) Unit Testing
+* It encourages you to write better code, that follows **SOLID** principles and allows the introduction of (better and more) Unit Testing
 * CQS is well-suited towards complex domains where Domain-Driven Design is most useful
 
 #### CQS in CRUD

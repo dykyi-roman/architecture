@@ -1,14 +1,14 @@
 # [Architecture](README.md)
 
 ## The Dependency Inversion Principle (DIP)
-Dependency inversion is one of the popular SOLID principles, which is an acronym for the first five object-oriented design principles by [Robert C. Martin](http://cleancoder.com/files/about.md)
+Dependency inversion is one of the popular **SOLID** principles, which is an acronym for the first five object-oriented design principles by [Robert C. Martin](http://cleancoder.com/files/about.md)
 Dependency Injection is a well-known pattern and de-facto standard for implementing a Dependency Inversion Principle.
 Most modern frameworks have some level of support for Dependency Injection.
 
 ### Rules
-* A high-level modules should not depend on low-level modules. Both should depend on abstractions (SOLID)
+* A high-level modules should not depend on low-level modules. Both should depend on abstractions (**SOLID**)
 * Abstractions should not depend on details. Details (concrete implementations) should depend on abstractions
-* No [cyclic dependency](https://www.sciencedirect.com/topics/computer-science/cyclic-dependency) - is formed when two or more abstractions have direct or indirect dependencies on each other
+* Avoid circular dependencies and keep code testable. The [Acylic Dependency Rule](https://khalilstemmler.com/wiki/acyclic-dependencies-principle/) describes this phenomenon in more detail.
 
 ### Summary
 When high-level modules depend on abstractions, it promotes loose coupling, making it easier to change the implementation of the low-level modules without affecting the high-level modules.
@@ -32,4 +32,5 @@ final readoly class LowLevelComponent implements LowLevelComponentInterface
 
 ### Read
 * [The Dependency Inversion Principle](https://web.archive.org/web/20110714224327/http://www.objectmentor.com/resources/articles/dip.pdf)
+* [The Dependency Rule](https://khalilstemmler.com/wiki/dependency-rule/)
 * [THE IMPORTANCE OF THE DEPENDENCY INVERSION PRINCIPLE](https://www.tripled.io/07/05/2019/dependency-inversion-principle/)

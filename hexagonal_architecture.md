@@ -31,7 +31,7 @@ From the example above, we have seen two types of ports and adapters – those t
 * Primary side: UI ports and adapters
 * Secondary: Infrastructure ports and adapters
 
-### When to use
+### When to apply
 * When we need completely isolate your application logic and domain logic
 * When we have many context and need to communicate with them
 
@@ -57,4 +57,4 @@ From the example above, we have seen two types of ports and adapters – those t
 * [Domain-Driven Design and the Hexagonal Architecture](https://vaadin.com/blog/ddd-part-3-domain-driven-design-and-the-hexagonal-architecture)
 * [HEXAGONAL ARCHITECTURE - WHAT IS IT? WHY SHOULD YOU USE IT?](https://www.happycoders.eu/software-craftsmanship/hexagonal-architecture/)
 * [What's Hexagonal Architecture?](https://medium.com/@luishrsoares/whats-hexagonal-architecture-6da22d4ab600)
-* [Hexagonal Architecture: What You Need To Know - Simple Explanation (video)](https://www.youtube.com/watch?v=bDWApqAUjEI)
+* [Video - Hexagonal Architecture: What You Need To Know - Simple Explanation](https://www.youtube.com/watch?v=bDWApqAUjEI)
