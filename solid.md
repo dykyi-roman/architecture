@@ -29,7 +29,7 @@ final readonly class Job
     {   
     }
     
-    //SRP broken, method for two actors
+    //SRP broken, available methods for two actors
 }
 
 ```
@@ -234,7 +234,7 @@ final readonly class ExportToPDF implements ExporterInterface
     public function export(): object;
 }   
 
-final readonly CV
+final readonly class CV
 {
     public function __construct(private ExporterInterface $exporter);
 }
