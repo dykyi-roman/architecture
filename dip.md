@@ -1,12 +1,12 @@
 # [Architecture](README.md)
 
 ## The Dependency Inversion Principle (DIP)
-Dependency inversion is one of the popular **SOLID** principles, which is an acronym for the first five object-oriented design principles by [Robert C. Martin](http://cleancoder.com/files/about.md)
+Dependency inversion is one of the popular [SOLID](solid.md) principles, which is an acronym for the first five object-oriented design principles by [Robert C. Martin](http://cleancoder.com/files/about.md)
 Dependency Injection is a well-known pattern and de-facto standard for implementing a Dependency Inversion Principle.
 Most modern frameworks have some level of support for Dependency Injection.
 
 ### Rules
-* A high-level modules should not depend on low-level modules. Both should depend on abstractions (**SOLID**)
+* A high-level modules should not depend on low-level modules. Both should depend on abstractions ([SOLID](solid.md))
 * Abstractions should not depend on details. Details (concrete implementations) should depend on abstractions
 * Avoid circular dependencies and keep code testable. The [Acylic Dependency Rule](https://khalilstemmler.com/wiki/acyclic-dependencies-principle/) describes this phenomenon in more detail.
 
