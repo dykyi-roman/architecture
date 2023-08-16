@@ -33,6 +33,47 @@ But, this is fairly complex and leans more to [CQRS](cqrs.md)
 * Commands: mutates state but does not have a return value [SRP](https://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html)
 * Queries: have a return value doesn't mutate state [SRP](https://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html)
 
+### CODE
+:poop:
+```php
+interface JobInterface
+{
+    public function getJob(string $title): object;
+    public function addJob(object $value): void;
+}
+```
+
+:heart:
+```php
+final readonly class ReceiveJobsQuery
+{
+    public function __constructor(private string $title)
+    {
+    }
+}
+
+final readonly class CreateJobCommand
+{
+    public function __constructor(private object $value)
+    {
+    }
+}
+
+final readonly class CreateJobCommandHandler implements CommandBusInterface
+{
+    public function __invoke(CreateJobCommand $command): void
+    {
+    }
+}
+
+final readonly class ReceiveJobsQueryHandler implements QueryBusInterface
+{
+    public function __invoke(ReceiveJobsQuery $command): object
+    {
+    }
+}
+```
+
 ### Read
 * [Martin Fowler - CQS](https://martinfowler.com/bliki/CommandQuerySeparation.html)
 * [CQS - simple but powerful pattern](https://www.dotnetcurry.com/patterns-practices/1461/command-query-separation-cqs)
