@@ -34,8 +34,9 @@ On microservice level use [database per service pattern](https://microservices.i
 * CQRS is not a pattern that encompasses the whole application. It is a concept that builds on Domain Driven Design [DDD](https://learn.microsoft.com/ru-ru/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/apply-simplified-microservice-cqrs-ddd-patterns).
 * CQRS provides us a convenient way to select separate domain models appropriate for write and read operations; we don't have to create a complex domain model supporting both
 * It helps us to select repositories that are individually suited for handling the complexities of the read and write operations, like high throughput for writing and low latency for reading
-* The complex business logic goes into the write model. The read model can be simple.
-* It's easier to ensure that only the right domain entities are performing writes.
+* The complex business logic goes into the write model. The read model can be simple
+* Low Technical Debt and High Maintainability. Adding features should not require large code-base changes
+* It's easier to ensure that only the right domain entities are performing writes
 * It allows the read and write models to scale independently
 * CQRS extends this concept into a higher level for machine-machine APIs, separation of the message models and processing paths
 

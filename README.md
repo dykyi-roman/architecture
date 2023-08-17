@@ -8,7 +8,7 @@ An architectural pattern is a general, reusable resolution to a commonly occurri
 Pattern is an implementation that solves a particular problem. A principle is an abstraction, a guide to design.
 
 There is no single way to structure a project, and each architecture has its characteristics. 
-Even though you do not define an architecture, following the [SOLID](solid.md) principles will lead you to maintain a well-organized code.
+Even though you do not define an architecture, following the SOLID principles will lead you to maintain a well-organized code.
 
 * [DIP](dip.md)
 * [SOLID](solid.md)
@@ -16,6 +16,9 @@ Even though you do not define an architecture, following the [SOLID](solid.md) p
 * [CQRS](cqrs.md)
 * [Hexagonal Architecture](hexagonal_architecture.md)
 * [Layered Architecture](layered_architecture.md)
+* [Monolithic Architecture](monolithic_architecture.md)
+* [Microservice Architecture](microservice_architecture.md)
+* [Event-driven Architecture](event_driven_architecture.md)
 * [DDD](ddd.md)
 
 ## Principles

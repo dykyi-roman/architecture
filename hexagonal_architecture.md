@@ -6,8 +6,8 @@ The Hexagonal Architecture, also known as Ports and Adapters. You can have multi
 Once we dig deeper into the hexagonal architecture, we will find that it take a start from [Onion architecture](onion.md) another know like traditional layered architecture.
 The hexagonal architecture is based on three principles and techniques:
 * Separate User-Side, Business Logic, and Server-Side
-* Dependencies are going from User-Side and Server-Side to the Business Logic
-* Isolate the boundaries by using Ports and Adapters
+* Dependencies are going from **User-Side** and **Server-Side** to the **Business Logic**
+* Isolate the boundaries by using **Ports** and **Adapters**
 
 **Port** - an interface between the system and the outside world that has been designed for a particular purpose or protocol. Good example would be [PHP Standards Recommendations](https://www.php-fig.org/psr/) - it is a set of PHP interfaces that describe common concepts that have already been tested and worked out.
 

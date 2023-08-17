@@ -1,20 +1,55 @@
 # [Architecture](README.md)
 
 ## DDD
+is a software development approach that uses and builds upon domain principles and ideas. They can help build your project first to think about domain code that needs a stay in the background.
 
-### Entity problem
-In the domain we have `User` and in database layer we have a `UserEntity`, Its means that somewhere in domain service we need to convert `User` to `UserEntity` before calling method from Infrastructure code.
-As the domain layer depends on the database layer the domain layer needs to convert its own objects (User) to objects the database layer knows how to use (UserEntity). So we have code that deals with database layer specific classes located in the domain layer.
-The domain layer is directly using implementation classes from the database layer. This makes it hard to replace the database layer with different implementations. Even if we do not want to plan for replacing the database with a different storage technology this is important.
-This problem can be solved:
-* Introducing interfaces and using [DAO pattern](https://www.tutorialspoint.com/design_pattern/data_access_object_pattern.htm) - is a structural pattern that allows us to isolate the application/business layer from the persistence layer
-* Separate model for the persistence layer (DTO)
-* Do not use docblock orm annotations and move it to configuration files
+We write code for people. Everything around us is an object. And we need to think by objects.
+
+## Strategic patterns
+**Domain** - this is what the organization does, and the environment in which it does it
+
+**Subdomain** - part of business. Subdomain divided by: Core, Supporting, Generic
+  * Core - this is the main domain in your business, and all power and money must be direct in this domain
+
+**Ubiquitous Language** - a language structured around the domain model and used by all team members to connect all the activities of the team with the software. Every single person on the project team should use the Ubiquitous Language. This means that technical and non-technical people have a common language to communicate so there is no loss of understanding between parties
+
+**Bounded Contexts** - is the boundary around a Domain Model. The language, names of objects and ideas within the Bounded Context should form a unified model of the problem at hand. Each Bounded Context should have an internal model that is clearly understood by all members of the team
+![](docs/13.png)
+
+**Context Maps** - it is the global view of how each Bounded Context fits together within the application or organization
+![](docs/12.png)
+
+**Shared Kernel** - The general part of the model and common code. **Anti-pattern** - it cannot be changed without consulting another team
+![](docs/11.png)
+
+**Anti-corruption Layer** - Implement a facade or adapter layer between different subsystems that don't share the same semantics.
+It insures that one language doesn`t corrut the model of the other. 
+Example we want to integrate with legacy system, but we do not want to translate legacy code everywhere.
+![](docs/10.png)
+
+## Tactical patterns
+* **Entities** - it is a potentially changeable object, which has a unique identifier. **Entities** have a life of their own within their **Domain Model**
+* **Value Objects** - differentiates a **Value Object** from an Entity is that, Value Objects are immutable and do not have a unique identity. The consequence of this immutability is that in order to update a **Value Object**, you must create a new instance to replace the old one
+* **Aggregates** - it based on two other Tactical Standards, which are Entities and Value Objects
+* **Services** - stateless objects that perform some logic that do not fit with an operation on an **Entity** or **Value Object**
+* **Factories** - used to provide an abstraction in the construction of an Object, and can return an **Aggregate** root, an **Entity**, or an **Value Object**. Factories are an alternative for building objects that have complexity in building via the constructor method
+* **Repositories** - mainly used to deal with storage, they abstract concerns about data storage. They are responsible for persisting **Aggregates**
+* **Events** - indicate significant occurrences that have occurred in the domain and need to be reported to other stakeholders belonging to the domain. It is common for **Aggregates** to publish events
+* **Modules** - help us segregate concepts, can be defined as a package/namespace, and always follow the **Ubiquitous Language**
+
+![](docs/9.png)
 
 ### Summary
+* Easy support, understand, test.
 
 ### Read
-
----
-* [DTO for model abstraction](https://bitrock.it/blog/from-layered-to-hexagonal-architecture-hands-on.html)
-* [USer - UserEntity. What is the problem with this?](https://www.mscharhag.com/architecture/layer-onion-hexagonal-architecture)
+* [Book - DDD in PHP](https://github.com/shubham-shinde/books/blob/master/PHP/Domain-Driven%20Design%20in%20PHP%20-%20Buenosvinos%2C%20Carlos%3B%20Soronellas%2C%20Christian.pdf)
+* [Eric Evans 2003 - Domain-Driven Design](https://github.com/gg-daddy/ebooks/blob/master/Eric%20Evans%202003%20-%20Domain-Driven%20Design%20-%20Tackling%20Complexity%20in%20the%20Heart%20of%20Software.pdf)
+* [Using tactical DDD to design microservices](https://learn.microsoft.com/en-us/azure/architecture/microservices/model/tactical-ddd)
+* [Domain, Subdomain, Bounded Context, Problem/Solution Space in DDD: Clearly Defined](https://medium.com/nick-tune-tech-strategy-blog/domains-subdomain-problem-solution-space-in-ddd-clearly-defined-e0b49c7b586c)
+* [DDD Part 1: Strategic Domain-Driven Design](https://vaadin.com/blog/ddd-part-1-strategic-domain-driven-design)
+* [DDD Part 2: Tactical Domain-Driven Design](https://vaadin.com/blog/ddd-part-2-tactical-domain-driven-design)
+* [Learning Domain-Driven Design (DDD) — Part 1-6](https://medium.com/@matteopampana/learning-domain-driven-design-ddd-part-1-103192742739)
+* [Video - DDD Building Blocks](https://www.youtube.com/watch?v=xFl-QQZJFTA)
+* [Video - DDD Bounded Contexts & Subdomains](https://www.youtube.com/watch?v=NvBsEnDgA4o)
+* [Video - Domain Driven Design: What You Need To Know](https://www.youtube.com/watch?v=4rhzdZIDX_k)
