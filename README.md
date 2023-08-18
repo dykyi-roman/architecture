@@ -16,7 +16,7 @@ Even though you do not define an architecture, following the SOLID principles wi
 * [CQRS](cqrs.md)
 * [Hexagonal Architecture](hexagonal_architecture.md)
 * [Layered Architecture](layered_architecture.md)
-* [Monolithic Architecture](monolithic_architecture.md)
+* [Modular Monolithic Architecture](modular_monolithic_architecture.md)
 * [Microservice Architecture](microservice_architecture.md)
 * [Event-driven Architecture](event_driven_architecture.md)
 * [DDD](ddd.md)
@@ -31,3 +31,7 @@ Even though you do not define an architecture, following the SOLID principles wi
 * Reduced Complexity (DI)
 * Concentrate on Domain/Business
 * Independence from framework, DB, UI, external service
+
+## Read 
+* [Микрослужбы .NET: Архитектура контейнерных приложений](https://learn.microsoft.com/ru-ru/dotnet/architecture/microservices/)
+* [What are microservices?](https://microservices.io/index.html)

@@ -1,6 +1,6 @@
 # [Architecture](README.md)
 
-## Monolithic Architecture
+## Modular Monolithic Architecture
 The modular monolith combines the advantages of both architectural styles. 
 It provides simplicity in terms of deployment and physical architecture of the monolith, and logical architecture of microservices.
 The modular monolithic architecture divided our application logic into modules and each module will be independent and isolated.
