@@ -12,6 +12,7 @@ Even though you do not define an architecture, following the SOLID principles wi
 
 * [DIP](dip.md)
 * [SOLID](solid.md)
+* [GRASP](grasp.md)
 * [CQR](cqs.md)
 * [CQRS](cqrs.md)
 * [Hexagonal Architecture](hexagonal_architecture.md)
