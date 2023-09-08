@@ -101,5 +101,31 @@ High Cohesion:
 * Related responsibilities in to one manageable unit
 * Clearly defines the purpose of the element
 
+### Indirection
+
+Help to avoid a direct coupling between two or more elements. 
+Indirection introduces an intermediate unit to communicate between the other units, so that the other units are not directly coupled
+
+Patterns that helped to do it: [Adapter](https://refactoring.guru/design-patterns/adapter), [Facade](https://refactoring.guru/design-patterns/facade), [Obserever](https://refactoring.guru/design-patterns/observer)
+
+### Polymorphism
+Help to handle alternatives based on type. When related alternatives or behaviors vary by type (class), assingn responsibility for the behavior (using polymorphi operations) to the types for which the behavior varies.
+
+Patterns that helped to do it: [Strategy](https://refactoring.guru/design-patterns/strategy)
+
+### Protected Variations
+Help to avoid impact of variations of some elements on the other elements. Provides flexibility and protection from variations.
+As architects and programmers we must be ready for **ever-changing** requirements. Fortunately, we are armed with a lot of design guidelines, principles, patterns and practices to support changes on different levels of abstraction:
+* [SOLID](solid.md)
+* [GangOfFour](https://martinfowler.com/bliki/GangOfFour.html)
+* Encapsulation
+* Law of Demeter
+* Service Discovery
+* Asynchronous messaging
+* [Event-driven architectures](event_driven_architecture.md)
+
+As Protected Variations principle says, first step is to identify points of predicted variation or instability
+
 ### Read
 * [Book(Danya Rao) GRASP Design Principles](https://home.cs.colorado.edu/~kena/classes/5448/f12/presentation-materials/rao.pdf)
+* [DESIGN PATTERNS](https://refactoring.guru/design-patterns)
