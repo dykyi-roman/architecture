@@ -90,8 +90,10 @@ I'm a proponent of using [ADR](https://github.com/pmjones/adr) for following thi
 ### Low Coupling and High Cohesion
 
 Low Coupling:
+* Follow SRP principe
 * How strongly the objects are connected to each other?
-* Coupling – object depending on other object
+* Coupling – object depending on other object, Constant & Model, Shared Kernel
+* Modular - small module unite with other in big module like a part one domain
 * How can we reduce the impact of change in depended upon elements on dependant elements
 * Prefer low coupling – assign responsibilities so that coupling remain low
 * Minimizes the dependency hence making system maintainable, efficient and code reusable
@@ -100,6 +102,9 @@ High Cohesion:
 * How are the operations of any element are functionally related?
 * Related responsibilities in to one manageable unit
 * Clearly defines the purpose of the element
+* Extend on the module level
+* Traits, anonymous classes
+* Shared Kernel
 
 ### Indirection
 
