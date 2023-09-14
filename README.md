@@ -21,8 +21,11 @@ Even though you do not define an architecture, following the SOLID principles wi
 * [Microservice Architecture](microservice_architecture.md)
 * [Event-driven Architecture](event_driven_architecture.md)
 * [DDD](ddd.md)
+* [Patterns](https://github.com/kamranahmedse/design-patterns-for-humans)
 
 ## Principles
+* Stability
+* Performance
 * Durability
 * Scalability
 * Flexibility
@@ -34,5 +37,11 @@ Even though you do not define an architecture, following the SOLID principles wi
 * Independence from framework, DB, UI, external service
 
 ## Read 
+* [awesome-scalability](https://github.com/binhnguyennus/awesome-scalability)
+* [awesome-design-patterns](https://github.com/DovAmir/awesome-design-patterns)
+* [professional-programming](https://github.com/charlax/professional-programming)
+* [system-design](https://github.com/karanpratapsingh/system-design)
+* [CleanArchitecture](https://github.com/ardalis/CleanArchitecture)
+* [Awesome CTO](https://github.com/kuchin/awesome-cto)
 * [Микрослужбы .NET: Архитектура контейнерных приложений](https://learn.microsoft.com/ru-ru/dotnet/architecture/microservices/)
-* [What are microservices?](https://microservices.io/index.html)
+* [Azure application architecture fundamentals](https://learn.microsoft.com/en-us/azure/architecture/guide/)
