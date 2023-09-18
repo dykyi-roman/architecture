@@ -48,6 +48,13 @@ Deficiencies:
 * Bottleneck
 * Additional configuration work
 
+### Difference between API Gateway and Load Balancer
+API Gateway acts as a single entry point for all API requests and provides features such as request routing, rate limiting, authentication, and API versioning and also hide the complexities of the underlying microservices from the client applications.
+
+Load Balancer, on the other hand, is responsible for distributing incoming request across multiple instances of a microservice to improve availability, performance, and scalability. It helps to evenly distribute the workload across multiple instances and ensures that each instance is utilized to its fullest potential.
+
+**Possible Workflow: Clients => Load Balancer => API Gateway => API BackEnd**  
+
 ### Summary
 * Easy test, support, deploy, scale, create tasks
 * Free choice of technologies
@@ -55,6 +62,7 @@ Deficiencies:
 
 ### Read
 * [Video - Microservices vs Monolithic Architecture](https://www.youtube.com/watch?v=6-Wu178sOEE)
+* [The Backend For Frontend](https://samnewman.io/patterns/architectural/bff/)
 * [Способы общения микросервисов для самых маленьких](https://habr.com/ru/companies/maxilect/articles/677128/)
 * [Architecting container and microservice-based applications](https://learn.microsoft.com/en-gb/dotnet/architecture/microservices/architect-microservice-container-applications/)
 * [What are microservices?](https://microservices.io/index.html)

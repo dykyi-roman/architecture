@@ -22,6 +22,7 @@ Even though you do not define an architecture, following the SOLID principles wi
 * [Event-driven Architecture](event_driven_architecture.md)
 * [DDD](ddd.md)
 * [Patterns](https://github.com/kamranahmedse/design-patterns-for-humans)
+* [Proxy server](proxy_server.md)
 
 ## Principles
 * Stability
