@@ -33,7 +33,7 @@ It acts as a reverse proxy, routing requests from clients to services. It can al
 That fact can be an important risk because your API Gateway service will be growing and evolving based on many different requirements from the client apps. Good practice is using separated gateways.
 ![](docs/18.png)
 
-An API Gateway can offer multiple features, some of tham clouds give you from the box:
+An API Gateway can offer multiple features, some of them clouds give you from the box:
 * Load balancing
 * Gateway routing
 * Requests aggregation
@@ -62,6 +62,8 @@ Load Balancer, on the other hand, is responsible for distributing incoming reque
 
 ### Read
 * [Video - Microservices vs Monolithic Architecture](https://www.youtube.com/watch?v=6-Wu178sOEE)
+* [Design a microservice-oriented application](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/multi-container-microservice-net-applications/microservice-application-design)
+* [Use API gateways in microservices](https://learn.microsoft.com/en-us/azure/architecture/microservices/design/gateway)
 * [The Backend For Frontend](https://samnewman.io/patterns/architectural/bff/)
 * [Способы общения микросервисов для самых маленьких](https://habr.com/ru/companies/maxilect/articles/677128/)
 * [Architecting container and microservice-based applications](https://learn.microsoft.com/en-gb/dotnet/architecture/microservices/architect-microservice-container-applications/)

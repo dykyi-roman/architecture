@@ -7,8 +7,8 @@ Architecture is a structure, a way to distribute your application components in 
 An architectural pattern is a general, reusable resolution to a commonly occurring problem in software architecture within a given context.
 Pattern is an implementation that solves a particular problem. A principle is an abstraction, a guide to design.
 
-There is no single way to structure a project, and each architecture has its characteristics. 
-Even though you do not define an architecture, following the SOLID principles will lead you to maintain a well-organized code.
+There is no single way to structure a project, and each architecture has its own characteristics. 
+Even though you do not define an architecture, following the next principles will lead you to maintain a well-organized code.
 
 * [DIP](dip.md)
 * [SOLID](solid.md)

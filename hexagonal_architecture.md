@@ -42,6 +42,10 @@ From the example above, we have seen two types of ports and adapters – those t
 * Use [DDD](ddd.md) tactical patterns
 * Follow dependency inversion principle
 
+### Code structure
+important to know, when you follow this approach, please structuring an application based on Ports and Adapters not only on the diagrams. 
+Tty to do it in the code too, to transfer the domain description to the code as much as possible. Use `Adapter` and `Port` postfix in your class and interfaces.
+
 ### Summary
 * We can test/deploy all components in complete isolation using test doubles
 * Application is completely decoupled from the technology, we can upgrade and replace the infrastructure

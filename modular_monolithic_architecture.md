@@ -18,8 +18,8 @@ Each module only connect to other modules that specifically provides services th
 ### Monorepo
 It is a version-controlled code repository that holds many projects. While these projects may be related, they are often logically independent and run by different teams.
 Monorepos are sometimes called monolithic repositories, but they should not be confused with monolithic architecture (it not the same).
-* Visibility
-* Simpler dependency management
+* Visibility (+)
+* Simpler dependency management (+)
 * Bad performance, difficult to scale up (-)
 * Broken master affects everyone working in the monorepo (-)
 * New developers has high threshold of entry in to project (-)
