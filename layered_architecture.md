@@ -8,6 +8,7 @@ As a result, our application will be divided into small, decoupled, components. 
 * Domain layer - is responsible for all the business logic
 * Infrastructure layer - the majority of your application's external dependencies
 ![8.png](docs/8.png)
+_Notice: If you don't have logic in the **Application Layer**, an **Infrastructure layer** call is allowed, so as not to create a proxy classes._
 
 ### Rules
 * The application is built around an independent object model
