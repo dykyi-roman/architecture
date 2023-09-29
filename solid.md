@@ -4,11 +4,11 @@
 The SOLID principles are intended to manifest mid-level code structure. The motivation behind these principles is the creation of mid-level software structures that:
 
 ### Rules
-* SRP – A module should be responsible to one, and only one actor
-* OCP – A software artifact should be open for extension but closed for modification
-* LSP – states that objects in a program should be replaceable with instances of their subtypes without changing the correctness of that program
-* ISP – Make fine-grained interfaces that are client specific
-* [DIP](dip.md) – Source code dependencies refer only to abstractions, not to concretions
+* Single Responsability Principle: SRP – A module should be responsible to one, and only one actor
+* Open-Closed Principle: OCP – A software artifact should be open for extension but closed for modification
+* Liskov Substitution Principle: LSP – states that objects in a program should be replaceable with instances of their subtypes without changing the correctness of that program
+* Interface Segregation Principle: ISP – Make fine-grained interfaces that are client specific
+* [Dependency Inversion Principle: DIP](dip.md) – Source code dependencies refer only to abstractions, not to concretions
 
 ### Summary
 Set of five software design principles intended to make software design more understandable, flexible, and maintainable.
