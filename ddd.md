@@ -39,10 +39,28 @@ Example we want to integrate with legacy system, but we do not want to translate
 
 ![](docs/9.png)
 
+### Aggregates
+
+Aggregate should be the single entry point for updates using methods or operations in the root aggregate class. 
+Changes to entities in an aggregate should occur only through the root of the aggregate.
+
+#### Invariants
+The main responsibility of an aggregate is to enforce invariants across state changes for all the entities within that aggregate.
+In DDD, validation rules can be thought as invariants. Domain entities should always be valid entities and invariants help to do it.
+In general, checks are usually implemented in domain entity **constructors** or in methods that can **update** the entity.
+Exist a several way how we can valid it:
+* Specification template
+* Throwing exceptions
+* Using validation attributes (annotations). // not recommend
+
+Use field-level validation for command data transfer objects (DTOs) and domain-level validation within entities. This way we don't duplicate checks.
+Use data annotations at the application level in ViewModel classes (rather than in domain entities) that will accept input data to perform model validation at the UI level.
+
 ### Summary
 * Easy support, understand, test.
 
 ### Read
+* [Tutorial Domain Driven Design](https://uniknow.github.io/AgileDev/site/0.1.8-SNAPSHOT/parent/ddd/core/introduction_ddd.html)
 * [Book - DDD in PHP](https://github.com/shubham-shinde/books/blob/master/PHP/Domain-Driven%20Design%20in%20PHP%20-%20Buenosvinos%2C%20Carlos%3B%20Soronellas%2C%20Christian.pdf)
 * [Eric Evans 2003 - Domain-Driven Design](https://github.com/gg-daddy/ebooks/blob/master/Eric%20Evans%202003%20-%20Domain-Driven%20Design%20-%20Tackling%20Complexity%20in%20the%20Heart%20of%20Software.pdf)
 * [Using tactical DDD to design microservices](https://learn.microsoft.com/en-us/azure/architecture/microservices/model/tactical-ddd)

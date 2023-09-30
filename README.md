@@ -23,6 +23,7 @@ Even though you do not define an architecture, following the next principles wil
 * [DDD](ddd.md)
 * [Patterns](https://github.com/kamranahmedse/design-patterns-for-humans)
 * [Proxy server](proxy_server.md)
+* [Anti-patterns](anti_patterns.md)
 
 ## Principles
 * Stability
