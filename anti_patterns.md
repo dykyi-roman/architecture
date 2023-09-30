@@ -2,6 +2,23 @@
 
 ## Anti-patterns
 
+* Copy and Paste
+* MVC (Model-View-Controller)
+* Controller
+* Spaghetti code
+* Hard code
+* Over configuration
+* Reinventing the wheel
+* Dead code
+* God Object
+* Dependency hell
+* Race condition
+* Null hell
+* Trait
+* Singleton
+* Anemic model
+* ActiveRecord
+
 ### Copy and Paste
 
 The task is completed faster, but bring language support for this code in the future. Should be detected and refactoring on the review step or creating a tech dept task for fixing the feature.
@@ -108,6 +125,20 @@ Problems:
 ### Trait
 
 ....
+
+### Singleton
+
+....
+
+### Anemic model
+
+...
+
+### ActiveRecord
+
+...
+
+### 
 
 ### Read
 * [Антипаттерны в программировании и проектировании архитектуры](https://bool.dev/blog/detail/antipatterny-v-programmirovanii-i-proektirovanii-arkhitektury)
