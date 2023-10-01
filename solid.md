@@ -4,11 +4,11 @@
 The SOLID principles are intended to manifest mid-level code structure. The motivation behind these principles is the creation of mid-level software structures that:
 
 ### Rules
-* SRP – A module should be responsible to one, and only one actor
-* OCP – A software artifact should be open for extension but closed for modification
-* LSP – states that objects in a program should be replaceable with instances of their subtypes without changing the correctness of that program
-* ISP – Make fine-grained interfaces that are client specific
-* [DIP](dip.md) – Source code dependencies refer only to abstractions, not to concretions
+* Single responsibility principle (SRP) – a module should be responsible to one, and only one actor
+* Open close principle (OCP) – a software artifact should be open for extension but closed for modification
+* Liskov substitution principle (LSP) – states that objects in a program should be replaceable with instances of their subtypes without changing the correctness of that program
+* Interface segregation principle (ISP) – make fine-grained interfaces that are client specific
+* Dependency inversion principle ([DIP](dip.md)) – source code dependencies refer only to abstractions, not to concretions
 
 ### Summary
 Set of five software design principles intended to make software design more understandable, flexible, and maintainable.
@@ -16,7 +16,7 @@ These principles are part of a larger set of principles promoted by Robert C. Ma
 
 ### CODE
 
-#### SRP
+#### Single responsibility principle
 :poop:
 ```php
 final readonly class Job
@@ -55,7 +55,7 @@ final readonly class FullDatyJob implements JobInterface
 }
 ```
 
-### OCP
+### Open close principle
 :poop:
 ```php
 final readonly class Employment
@@ -124,7 +124,7 @@ final readonly class EmploymentFactory
 EmploymentFactory::create($request->tyype)->job();
 ```
 
-### LSP
+### Liskov substitution principle
 :poop:
 ```php
 class FullDaySalaryCalculator
@@ -179,7 +179,7 @@ final readonly HalfDaySalaryCalculator implements SalaryCalculatorInterface
 }
 ```
 
-### ISP
+### Interface segregation principle
 :poop:
 ```php
 // ISP is broken because doing too many things
@@ -207,7 +207,7 @@ interface CVActivationInterface
 }
 ```
 
-### DIP
+### Dependency inversion principle
 :poop:
 ```php
 final readonly class ExportToPDF
