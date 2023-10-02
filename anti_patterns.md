@@ -74,7 +74,7 @@ Applying a quick solution without further correction. Should be prevented on the
 
 ### Over configuration
 
-Absolutely everything that is possible is configured and put into the config
+Absolutely everything that is possible is configured and put into the config.
 
 * This makes the project configuration incredibly difficult to understand
 * DevOps does not respect you. Deploying such a system also entails additional costs
@@ -92,14 +92,18 @@ Existing dead code in the codebase
 * Development speed slows down
 * Inability to refactor or develop new functionality
 
+Solution: Refactoring, Code review.
+
 ### God Object
 
-In general, it happens when we forgot about SRP. Follow: DDD, TDD, DRY, KISS, SOLID, YAGNI, GRASP.
+In general, it happens when we forgot about SRP.
 
 * The object takes on too many responsibilities
 * Code non-portability 
 * Difficult to maintain code
 * Code complexity
+
+Solution: Follow: DDD, TDD, DRY, KISS, SOLID, YAGNI, GRASP
 
 ### Dependency hell
 
@@ -110,7 +114,7 @@ In general, it happens when we forgot about SRP. Follow: DDD, TDD, DRY, KISS, SO
 
 ### Race condition
 
-Events occurring in an unexpected order. Try to write you idempotent code.
+Events occurring in an unexpected order.
 
 Problems:
 * Loss or corruption of data
@@ -118,27 +122,60 @@ Problems:
 * Vulnerabilities
 * Floating bugs
 
+Solution: Write an idempotent code
+
 ### Null hell
 
-....
+Avoid using **NULL** in the function argument and function return value.
+
+Problems:
+* Additional check for **NULL**
+
+Solution: Use [Fail fast](https://www.yegor256.com/2015/08/25/fail-fast.html) approach or Value Objects
 
 ### Trait
 
-....
+Problems:
+* Tight coupling
+* Broken OCP
+* Cannot be overwritten through inheritance
+* Not testable in isolation
+* Harder code understanding
+
+Solution: Use inheritance instead of traits!
 
 ### Singleton
 
-....
+Problems:
+* Difficulty testing
+* Memory allocated to an Singleton can't be freed
+* Global unique instance
+
+Solution: Use a single instance and propagate it to places that use the object as a parameter to make the dependency explicit
 
 ### Anemic model
 
-...
+The domain objects contain little or no business logic like validations, calculations, rules, and so forth.
+
+Problems:
+* Data is exposed through getters and setters. No encapsulation. 
+* High coupling. Low Cohesion.
+* Data set by setter instead of using constructor arguments.
+
+Solution: Use Rich model
 
 ### ActiveRecord
 
-...
+Active Record is one of the most controversial architectural patterns with many supporters and opponents.
 
-### 
+Problems:
+* Broken OOP and SRP
+* Mixing Infrastructure and Domain layers
+* High coupling makes writing unit tests almost impossible
+
+Solution: Use Datta Mapper Pattern
 
 ### Read
 * [Антипаттерны в программировании и проектировании архитектуры](https://bool.dev/blog/detail/antipatterny-v-programmirovanii-i-proektirovanii-arkhitektury)
+* [Why NULL is Bad](https://www.yegor256.com/2014/05/13/why-null-is-bad.html)
+* [Anemic vs. Rich Domain Objects](https://www.baeldung.com/java-anemic-vs-rich-domain-objects#low-coupling)
