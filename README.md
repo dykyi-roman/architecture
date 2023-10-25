@@ -41,6 +41,10 @@ Even though you do not define an architecture, following the next principles wil
 ## Code Review
 * [Code Review Developer Guide](code_review.md)
 
+## Coding
+
+* [Coding Standard and Best Practices](code_standarts.md)
+
 ## Read 
 * [awesome-scalability](https://github.com/binhnguyennus/awesome-scalability)
 * [awesome-design-patterns](https://github.com/DovAmir/awesome-design-patterns)
