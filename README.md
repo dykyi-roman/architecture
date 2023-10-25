@@ -38,6 +38,9 @@ Even though you do not define an architecture, following the next principles wil
 * Concentrate on Domain/Business
 * Independence from framework, DB, UI, external service
 
+## Code Review
+* [Code Review Developer Guide](code_review.md)
+
 ## Read 
 * [awesome-scalability](https://github.com/binhnguyennus/awesome-scalability)
 * [awesome-design-patterns](https://github.com/DovAmir/awesome-design-patterns)

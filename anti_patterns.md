@@ -179,3 +179,4 @@ Solution: Use Datta Mapper Pattern
 * [Антипаттерны в программировании и проектировании архитектуры](https://bool.dev/blog/detail/antipatterny-v-programmirovanii-i-proektirovanii-arkhitektury)
 * [Why NULL is Bad](https://www.yegor256.com/2014/05/13/why-null-is-bad.html)
 * [Anemic vs. Rich Domain Objects](https://www.baeldung.com/java-anemic-vs-rich-domain-objects#low-coupling)
+* [Anemic Domain Model vs. Rich Domain Model](https://medium.com/@inzuael/anemic-domain-model-vs-rich-domain-model-78752b46098f)
