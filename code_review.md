@@ -74,5 +74,5 @@ When reviewing PHP code, a PHP developer should check for various aspects to ens
 
 
 ### Read
-* [Goole Code Review](https://google.github.io/eng-practices/review/)
+* [Google Code Review](https://google.github.io/eng-practices/review/)
 * [GitHub Code Review](https://github.com/features/code-review/)
