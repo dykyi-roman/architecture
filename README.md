@@ -25,6 +25,12 @@ Even though you do not define an architecture, following the next principles wil
 * [Proxy server](proxy_server.md)
 * [Anti-patterns](anti_patterns.md)
 
+## Code Review
+* [Code Review Developer Guide](code_review.md)
+
+## Coding
+* [Coding Standard and Best Practices](code_standarts.md)
+  
 ## Principles
 * Stability
 * Performance
@@ -37,13 +43,6 @@ Even though you do not define an architecture, following the next principles wil
 * Reduced Complexity (DI)
 * Concentrate on Domain/Business
 * Independence from framework, DB, UI, external service
-
-## Code Review
-* [Code Review Developer Guide](code_review.md)
-
-## Coding
-
-* [Coding Standard and Best Practices](code_standarts.md)
 
 ## Read 
 * [awesome-scalability](https://github.com/binhnguyennus/awesome-scalability)
