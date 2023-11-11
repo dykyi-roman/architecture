@@ -49,6 +49,7 @@ Even though you do not define an architecture, following the next principles wil
   * [Note 1](https://www.michalbialecki.com/2020/06/23/what-i-learned-from-2500-udi-dahan-course/)
   * [Note 2](https://hackmd.io/@pierodibello/Advanced-Distributed-System-Design)
   * [Note 3](https://gist.github.com/craigtp/05a82b51557adc278acd71b5a2b88905)
+  * [script](docs/adsd.sh)
 * [awesome-scalability](https://github.com/binhnguyennus/awesome-scalability)
 * [awesome-design-patterns](https://github.com/DovAmir/awesome-design-patterns)
 * [professional-programming](https://github.com/charlax/professional-programming)
