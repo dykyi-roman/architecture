@@ -10,6 +10,23 @@ A physical separation is possible and allows you to scale up on both “read” 
 But, this is fairly complex and leans more to [CQRS](cqrs.md)
 ![cqrs](docs/3.png)
 
+## Rules
+* Commands and queries do not mix
+* Single Responsibility (SRP)
+* No side effects on queries
+* Strong typing and Easy to implement
+
+## When to implement
+* Small and medium projects
+* Projects with moderate complexity
+* Systems with high readability
+
+## How to apply
+* Define commands and queries
+* Create a class structure
+* Implement command and query handlers
+* Follow the "no side effects" principle
+
 ### [CQR or CQRS](cqs_cqrs.md)
  
 ### Summary
@@ -26,12 +43,12 @@ But, this is fairly complex and leans more to [CQRS](cqrs.md)
 * Queries: GET
 
 #### CQS in SQL
-* Commands: ALL (expect one)
+* Commands: ALL (except one)
 * Queries: SELECT
 
 #### CQS in CODE
 * Commands: mutates state but does not have a return value [SRP](https://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html)
-* Queries: have a return value doesn't mutate state [SRP](https://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html)
+* Queries: have a return value that doesn't mutate state [SRP](https://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html)
 
 ### CODE
 :poop:
