@@ -9,6 +9,14 @@ An architectural pattern in which an application is built as a collection of sma
 * REST API
 * Message Bus (RabbitMQ/Kafka)
 
+## Rules
+* Autonomy of services
+* Loose coupling
+* Clear APIs for communication
+* Data isolation
+* Service flexibility and scalability
+* Monitoring and management
+
 ## API Gateway
 
 ### Direct client to microservice communication
