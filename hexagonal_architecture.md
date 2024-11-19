@@ -20,7 +20,7 @@ The hexagonal architecture is based on three principles and techniques:
 ![cqrs](docs/5.png)
 
 So far, we have only looked at what the hexagonal architecture looks like when applied to a single bounded context. But what happens when you have multiple bounded contexts that need to communicate with each other?
-In this case mapping between the different contexts would take place in the downstream system’s adapter. Client and Action has act as ports and HTTP is an adapter between them.
+In this case mapping between the different contexts would take place in the downstream system’s adapter. Client and Action have acted as ports and HTTP is an adapter between them.
 ![cqrs](docs/7.png)
 
 The hexagonal architecture good scalable and suitable for implementing microservices. From a microservice’s perspective, all other microservices are parts of the outside world and are isolated via ports and adapters, just like the rest of the infrastructure.
@@ -31,24 +31,34 @@ From the example above, we have seen two types of ports and adapters – those t
 * Primary side: UI ports and adapters
 * Secondary: Infrastructure ports and adapters
 
+### Rules
+* Isolation of business logic
+* Define Ports and adapters
+* Dependency reversibility
+* Interchangeability of adapters
+
 ### When to apply
-* When we need completely isolate your application logic and domain logic
-* When we have many context and need to communicate with them
+* Complex systems with business logic
+* Systems with multiple entry and exit points
+* Systems subject to frequent changes
+* Microservice architecture
 
 ### How to implement
 * Identify the Domain Model
-* Define Ports
-* Implement Adapters
+* Define business logic
+* Create ports
+* Implement adapters
+* Use DI
 * Use [DDD](ddd.md) tactical patterns
-* Follow dependency inversion principle
+* Follow the dependency inversion principle
 
 ### Code structure
-Important to know, when you follow this approach, please structuring an application based on Ports and Adapters not only on the diagrams. 
-Tty to do it in the code too, to transfer the domain description to the code as much as possible. Use `Adapter` and `Port` postfix in your class and interfaces.
+Important to know, that when you follow this approach, please structure an application based on Ports and Adapters not only on the diagrams. 
+Try to do it in the code too, to transfer the domain description to the code as much as possible. Use `Adapter` and `Port` postfix in your class and interfaces.
 
 ### Summary
 * We can test/deploy all components in complete isolation using test doubles
-* Application is completely decoupled from the technology, we can upgrade and replace the infrastructure
+* The application is completely decoupled from the technology, we can upgrade and replace the infrastructure
 * The core business logic is separated from any external dependencies, resulting in a high degree of decoupling
 * Domain separating concerns between the core business logic, the application core deals exclusively with business topics
 * Quickly make a change in your code without side effect
