@@ -17,6 +17,21 @@ An architectural pattern in which an application is built as a collection of sma
 * Service flexibility and scalability
 * Monitoring and management
 
+## When to apply
+* Large and complex systems
+* Frequent updates and deployments
+* Various technology requirements
+* Multi-team development
+* Agility and rapid development
+
+## How to implement
+* Divide the system into domains
+* Define clear APIs
+* Isolate data
+* Set up orchestration and management
+* Provide monitoring and logging
+* Implement a resiliency strategy
+
 ## API Gateway
 
 ### Direct client to microservice communication
