@@ -12,6 +12,20 @@ Event-driven architecture (EDA) is an architectural pattern where system compone
 * Event design
 * Idempotency of handlers
 
+## When to apply 
+* Applications requiring high performance
+* Systems with a high degree of component independence
+* Integration with external systems
+* Scalable distributed systems
+* Applications requiring high reactivity
+
+## How to implement
+* Identify key events in the system
+* Choose the appropriate infrastructure
+* Implement publishers and subscribers
+* Organize the message scheme
+* Configure error handling and redelivery
+
 ### Event Sourcing
 Each service publishes an event whenever it updates its data. Other services subscribe to events.
 When an event is received, a service does something.
