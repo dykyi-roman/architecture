@@ -9,26 +9,26 @@ If you already have a big complex monolithic application running, the modular mo
 A modular monolith will allow you to learn your domain and pivot your architecture much faster than a microservices architecture.
 
 Each module should have its own business logic — and, if necessary, its database or table. 
-Also each module can follow their own logical separations using [Layered Architecture](layered_architecture.md) style.
+Also, each module can follow their own logical separations using [Layered Architecture](layered_architecture.md) style.
 Modular Monolith architecture breaks up the code into independent modules, and each module encapsulates their own features needed in your application. 
-Each module only connect to other modules that specifically provides services that needs to it.
+Each module only connect to other modules that specifically provide services that needs to it.
 
 ![14.png](docs/14.png)
 
 ### Monorepo
 It is a version-controlled code repository that holds many projects. While these projects may be related, they are often logically independent and run by different teams.
-Monorepos are sometimes called monolithic repositories, but they should not be confused with monolithic architecture (it not the same).
+Monorepos are sometimes called monolithic repositories, but they should not be confused with monolithic architecture (it is not the same).
 * Visibility (+)
 * Simpler dependency management (+)
 * Bad performance, difficult to scale up (-)
-* Broken master affects everyone working in the monorepo (-)
-* New developers has high threshold of entry in to project (-)
+* Broken master affects everyone working in the mono repo (-)
+* New developers have a high threshold of entry into to project (-)
 * Can reach unwieldy volumes of data and commits per day (-)
 * Very big code reviews (-)
 * Maintaining ownership of files is more challenging (-)
 
 ### How to implement
-* Put everything in a monorepo
+* Put everything in a mono repo
 * Ensure you have enough test
 * Split code into modules
 * Organize your code inside using [Layered Architecture](layered_architecture.md)
@@ -39,11 +39,24 @@ Monorepos are sometimes called monolithic repositories, but they should not be c
 ### Rules
 * No shared tables between modules
 * No cross-module joins
-* Referential integrity between modules, on the feture when we take design separate module
-* Modules are represents Bounded Context of our application domain and In Modules, we group features of Domain contexts [DDD](ddd.md)
+* Independence from the external system: the internal domain of the application should not depend on the data formats or business logic of the external system.
+* Modules represent the Bounded Context of our application domain and In Modules, we group features of Domain contexts [DDD](ddd.md)
+
+## When to apply
+* Startups and small projects
+* Medium-sized projects with growth potential
+* Teams with limited resources
+* Applications with variable requirements
+
+## How to implement
+* Designing modules
+* Encapsulation of data and logic
+* Code organization
+* Data access isolation
+* Interaction through contracts
 
 ### Summary
-* Encapsulate Business Logic in oe repository
+* Encapsulate Business Logic in our repository
 * Reusable Codes, Easy to Refactor
 * Better-Organized Dependencies (no network delay)
 * Less-Complex than [Microservices Architecture](microservice_architecture.md)
