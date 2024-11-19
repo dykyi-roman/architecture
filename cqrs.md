@@ -15,20 +15,33 @@ As a result, you can end up with an overly complex model that does too much.
 A more advanced version has a separation of writing and reading to different databases.
 ![cqrs](docs/2.png)
 
-On microservice level use [database per service pattern](https://microservices.io/patterns/data/database-per-service.html) for write and define a view database for read, which is a read-only replica that is designed to support that query.
+On the microservice level use [database per service pattern](https://microservices.io/patterns/data/database-per-service.html) to write and define a view database for read, which is a read-only replica that is designed to support that query.
 ![cqrs](docs/4.png)
 
 ### [CQR or CQRS](cqs_cqrs.md)
 
+## Rules
+* Data model separation
+* Separation of command logic from request logic
+* Consistency of data
+* Atomicity of commands
+* Asynchronous data update
+
 ### When to apply
 * In event sourcing, when you have a complex or hard business domain
-* In large team - You can split development tasks between people easily if you have chosen CQRS architecture
 * When we have difficult business logic - CQRS forces you to avoid mixing domain logic and infrastructural operations
 * Collaborative domains where many users access the same data in parallel
-* Querying between microservices. It help to avoid complex queries to get rid of inefficient joins
-* Scenarios where performance of data reads must be fine-tuned separately from performance of data writes
+* Querying between microservices. It helps to avoid complex queries to get rid of inefficient joins
+* Scenarios where the performance of data reads must be fine-tuned separately from the performance of data writes
 * Scenarios where one team of developers can focus on the complex domain model that is part of the write model, and another team can focus on the read model and the user interfaces
 * Integration with other systems, especially in combination with event sourcing, where the temporal failure of one subsystem shouldn't affect the availability of the others
+
+### How to implement
+* Define commands and requests
+* Implement separate data models
+* Organize the processing of commands and requests
+* Synchronize your data
+* Configure caching and optimization
 
 ### Summary 
 * CQRS is not a pattern that encompasses the whole application. It is a concept that builds on Domain Driven Design [DDD](https://learn.microsoft.com/ru-ru/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/apply-simplified-microservice-cqrs-ddd-patterns).
@@ -37,8 +50,8 @@ On microservice level use [database per service pattern](https://microservices.i
 * The complex business logic goes into the write model. The read model can be simple
 * Low Technical Debt and High Maintainability. Adding features should not require large code-base changes
 * It's easier to ensure that only the right domain entities are performing writes
-* It allows the read and write models to scale independently
-* CQRS extends this concept into a higher level for machine-machine APIs, separation of the message models and processing paths
+* It allows the read-and-write models to scale independently
+* CQRS extends this concept to a higher level for machine-machine APIs, separation of the message models and processing paths
 
 #### CQRS in PHONE
 * Commands: Microphone for speak
@@ -50,7 +63,7 @@ On microservice level use [database per service pattern](https://microservices.i
 
 #### CQRS in CODE
 * Commands: One model for write
-* Queries: One model for read
+* Queries: One model for reading
 
 ### Read
 * [Martin Fowler - CQRS](https://martinfowler.com/bliki/CQRS.html)
