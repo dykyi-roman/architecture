@@ -3,7 +3,7 @@
 ## Hexagonal Architecture
 The main idea behind hexagonal architecture is to have clear segregation of logic via the interface segregation principle.
 The Hexagonal Architecture, also known as Ports and Adapters. You can have multiple adapters for a single port or even a single adapter for multiple ports.
-Once we dig deeper into the hexagonal architecture, we will find that it take a start from [Onion architecture](onion.md) another know like traditional layered architecture.
+Once we dig deeper into the hexagonal architecture, we will find that it is a start from Onion architecture another know as traditional layered architecture.
 The hexagonal architecture is based on three principles and techniques:
 * Separate User-Side, Business Logic, and Server-Side
 * Dependencies are going from **User-Side** and **Server-Side** to the **Business Logic**
