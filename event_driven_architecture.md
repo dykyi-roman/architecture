@@ -1,17 +1,24 @@
 # [Architecture](README.md)
 
 ## Event-driven architecture
-Event-driven architecture is a software design pattern that enables an organization to detect “events” or important business moments (such as a transaction, site visit, shopping cart abandonment, etc) and act on them in real time or near real time.
-Events an event is a data point to represent state changes in a system.
+Event-driven architecture (EDA) is an architectural pattern where system components interact based on events. An event is any significant change in state or action within the system that can be published by one component and handled by other components. In this architecture, the event sender (publisher) and the event receiver (subscriber) are loosely coupled, providing high flexibility and scalability. Events can be sent in real time and processed asynchronously, allowing the system to respond to changes as they occur.
 ![](docs/15.png)
+
+### Rules
+* Loose coupling of components
+* Asynchronous processing
+* Event flow
+* Error detection and handling
+* Event design
+* Idempotency of handlers
 
 ### Event Sourcing
 Each service publishes an event whenever it updates its data. Other services subscribe to events.
-When an event is received, a service do it something.
+When an event is received, a service does something.
 
-Event Sourcing idea is simple: our domain is producing events that represent every change made in system. 
+The event Sourcing idea is simple: our domain is producing events that represent every change made in the system. 
 If we take every event from the beginning of the system and replay them in the initial state, we will get to the current state of the system. 
-It works similarly to transactions on our bank accounts; we can start with an empty account, replay every single transaction and (hopefully) get the current balance.
+It works similarly to transactions on our bank accounts; we can start with an empty account, replay every single transaction, and (hopefully) get the current balance.
 
 ### Saga
 The Saga design pattern is a way to manage data consistency across microservices in distributed transaction scenarios. 
@@ -25,7 +32,7 @@ Messages (events) are sent out by the host (publisher) to a channel, which subsc
 
 ### Summary
 * All events is immutable (+/-)
-* Easy make a rollback
+* Easily make a rollback
 * Hard to support
 
 ### Read
