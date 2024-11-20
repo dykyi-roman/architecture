@@ -15,7 +15,7 @@ Even though you do not define an architecture, following the next principles wil
 * [GRASP](grasp.md)
 * [CQR](cqs.md)
 * [CQRS](cqrs.md)
-* [Clean Architecture](clean_code.md)
+* [Clean Architecture](clean_architecture.md)
 * [Hexagonal Architecture](hexagonal_architecture.md)
 * [Layered Architecture](layered_architecture.md)
 * [Modular Monolithic Architecture](modular_monolithic_architecture.md)
