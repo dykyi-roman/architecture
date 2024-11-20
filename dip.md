@@ -17,7 +17,7 @@ Loose coupling, where you have minimal interdependence between components or mod
 ### CODE
 
 ```
-final readoly class HighLevelComponent {
+final readonly class HighLevelComponent {
     private final LowLevelComponentInterface; // dependency
 }
 
@@ -25,7 +25,7 @@ interface LowLevelComponentInterface
 { 
 }
 
-final readoly class LowLevelComponent implements LowLevelComponentInterface 
+final readonly class LowLevelComponent implements LowLevelComponentInterface 
 {
 }
 ```

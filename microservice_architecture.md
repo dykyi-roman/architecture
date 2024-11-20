@@ -32,6 +32,97 @@ An architectural pattern in which an application is built as a collection of sma
 * Provide monitoring and logging
 * Implement a resiliency strategy
 
+## Distributed Systems Fundamentals
+
+### CAP Theorem
+The CAP theorem states that a distributed system can only provide two of the following three guarantees simultaneously:
+
+* **Consistency** - Every read receives the most recent write or an error
+* **Availability** - Every request receives a response (without guarantee that it contains the most recent write)
+* **Partition tolerance** - The system continues to operate despite network partitions
+
+In practice, since network partitions are unavoidable in distributed systems, you must choose between **CP** (Consistency + Partition tolerance) or **AP** (Availability + Partition tolerance):
+* **CP systems**: Choose consistency over availability (e.g., MongoDB, Redis Cluster)
+* **AP systems**: Choose availability over consistency (e.g., Cassandra, CouchDB)
+
+### Eventual Consistency
+In distributed systems, eventual consistency is a consistency model where, given enough time without new updates, all replicas will converge to the same value. This is common in AP systems.
+
+Strategies for handling eventual consistency:
+* **Conflict resolution**: Last-write-wins, vector clocks, CRDTs
+* **Read-your-writes consistency**: User always sees their own updates
+* **Causal consistency**: Maintains cause-effect relationships
+
+### Circuit Breaker Pattern
+The Circuit Breaker pattern prevents cascading failures in distributed systems by "breaking" the circuit when a service is failing.
+
+**States:**
+* **Closed** - Requests flow normally; failures are counted
+* **Open** - Requests fail immediately without calling the service
+* **Half-Open** - Limited requests are allowed to test if the service recovered
+
+```php
+final class CircuitBreaker
+{
+    private const FAILURE_THRESHOLD = 5;
+    private const RECOVERY_TIMEOUT = 30;
+
+    private CircuitState $state = CircuitState::CLOSED;
+    private int $failureCount = 0;
+    private ?int $lastFailureTime = null;
+
+    public function call(callable $operation): mixed
+    {
+        if ($this->isOpen()) {
+            throw new CircuitOpenException('Service unavailable');
+        }
+
+        try {
+            $result = $operation();
+            $this->onSuccess();
+            return $result;
+        } catch (\Throwable $e) {
+            $this->onFailure();
+            throw $e;
+        }
+    }
+}
+```
+
+### Retry with Exponential Backoff
+A strategy for handling transient failures by retrying with progressively longer delays:
+
+```php
+final class RetryWithBackoff
+{
+    public function execute(
+        callable $operation,
+        int $maxRetries = 3,
+        int $baseDelayMs = 100,
+    ): mixed {
+        $attempt = 0;
+
+        while (true) {
+            try {
+                return $operation();
+            } catch (TransientException $e) {
+                if (++$attempt >= $maxRetries) {
+                    throw $e;
+                }
+
+                $delay = $baseDelayMs * (2 ** $attempt) + random_int(0, 100);
+                usleep($delay * 1000);
+            }
+        }
+    }
+}
+```
+
+**Best practices:**
+* Add jitter (randomness) to prevent thundering herd
+* Set maximum retry count and total timeout
+* Only retry on transient failures, not permanent ones
+
 ## API Gateway
 
 ### Direct client to microservice communication

@@ -3,6 +3,17 @@
 ## SOLID
 The SOLID principles are intended to manifest mid-level code structure. The motivation behind these principles is the creation of mid-level software structures that:
 
+## Table of Contents
+- [Rules](#rules)
+- [Summary](#summary)
+- [CODE](#code)
+  - [Single responsibility principle](#single-responsibility-principle)
+  - [Open close principle](#open-close-principle)
+  - [Liskov substitution principle](#liskov-substitution-principle)
+  - [Interface segregation principle](#interface-segregation-principle)
+  - [Dependency inversion principle](#dependency-inversion-principle)
+- [Read](#read)
+
 ### Rules
 * Single responsibility principle (SRP) – a module should be responsible to one, and only one actor
 * Open close principle (OCP) – a software artifact should be open for extension but closed for modification
@@ -17,7 +28,7 @@ These principles are part of a larger set of principles promoted by Robert C. Ma
 ### CODE
 
 #### Single responsibility principle
-:poop:
+### Bad Practice
 ```php
 final readonly class Job
 {
@@ -33,7 +44,7 @@ final readonly class Job
 }
 
 ```
-:heart:
+### Good Practice
 ```php
 interface JobInterface
 {
@@ -47,7 +58,7 @@ final readonly class PartTimeJob implements JobInterface
     }
 }
 
-final readonly class FullDatyJob implements JobInterface
+final readonly class FullDayJob implements JobInterface
 {
     public function execute(object $value): void
     {
@@ -56,7 +67,7 @@ final readonly class FullDatyJob implements JobInterface
 ```
 
 ### Open close principle
-:poop:
+### Bad Practice
 ```php
 final readonly class Employment
 {
@@ -73,22 +84,23 @@ final readonly class Employment
 
 final readonly class EmploymentFactory
 {
-    public function __constructor(
+    public function __construct(
         private Employment $employment,
-    );
+    ) {
+    }
 
     public function create(string $type): Employment
     {
         return match ($type) {
             'office' => $this->employment->office(),
             'remote' => $this->employment->remote(),
-            default => throw new \RuntimeException(sprintf('Unsupported employment type: %s'), $type),
+            default => throw new \RuntimeException(sprintf('Unsupported employment type: %s', $type)),
         };
     }
 }
 ```
 
-:heart:
+### Good Practice
 ```php
 interface EmploymentInterface
 {
@@ -116,25 +128,25 @@ final readonly class EmploymentFactory
         return match ($type) {
             'office' => new Office(),
             'remote' => new Remote()
-            default => throw new \RuntimeException(sprintf('Unsupported employment type: %s'), $type),
+            default => throw new \RuntimeException(sprintf('Unsupported employment type: %s', $type)),
         };
     }
 }
 
-EmploymentFactory::create($request->tyype)->job();
+EmploymentFactory::create($request->type)->job();
 ```
 
 ### Liskov substitution principle
-:poop:
+### Bad Practice
 ```php
 class FullDaySalaryCalculator
 {
     private const HOURS = 8;
     
-    public function __constructor(
+    public function __construct(
         private int $days,
         private int $amount,
-    ): void {
+    ) {
     }
     
     public function calculate(): int
@@ -151,7 +163,7 @@ class HalfDaySalaryCalculator extends FullDaySalaryCalculator
 (new HalfDaySalaryCalculator(30, 1000))->calculate();
 ```
 
-:heart:
+### Good Practice
 ```php
 interface SalaryCalculatorInterface
 {
@@ -180,7 +192,7 @@ final readonly HalfDaySalaryCalculator implements SalaryCalculatorInterface
 ```
 
 ### Interface segregation principle
-:poop:
+### Bad Practice
 ```php
 // ISP is broken because doing too many things
 interface CVInterface
@@ -192,7 +204,7 @@ interface CVInterface
 }    
 ```
 
-:heart:
+### Good Practice
 ```php
 interface CVStorageInterface
 {
@@ -208,7 +220,7 @@ interface CVActivationInterface
 ```
 
 ### Dependency inversion principle
-:poop:
+### Bad Practice
 ```php
 final readonly class ExportToPDF
 {
@@ -222,7 +234,7 @@ final readonly CV
 }
 ```
 
-:heart:
+### Good Practice
 ```php
 interface ExporterInterface
 {

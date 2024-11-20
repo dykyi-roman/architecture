@@ -13,7 +13,7 @@ Even though you do not define an architecture, following the next principles wil
 * [DIP](dip.md)
 * [SOLID](solid.md)
 * [GRASP](grasp.md)
-* [CQR](cqs.md)
+* [CQS](cqs.md)
 * [CQRS](cqrs.md)
 * [Clean Architecture](clean_architecture.md)
 * [Hexagonal Architecture](hexagonal_architecture.md)
@@ -30,7 +30,7 @@ Even though you do not define an architecture, following the next principles wil
 * [Code Review Developer Guide](code_review.md)
 
 ## Coding
-* [Coding Standard and Best Practices](code_standarts.md)
+* [Coding Standard and Best Practices](code_standards.md)
   
 ## Principles
 * Stability

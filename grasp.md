@@ -17,7 +17,7 @@ It’s a set of recommendations, principles, and patterns that are really good a
 Information expert might be the most important of all the GRASP patterns. This pattern says that all methods that work with data (variables, fields), should be in the same place where data (variables or fields) exist.
 
 #### CODE
-:poop:
+### Bad Practice
 ````php
 final readonly class ProductPriceItem(
     private int $amount,
@@ -42,7 +42,7 @@ foreach ($productPriceList as $item) {
     $sum += $item->amount * $item->price;  
 }
 ````
-:heart:
+### Good Practice
 ```php
 final readonly class ProductPriceItem(
     private int $amount,
@@ -77,9 +77,9 @@ final readonly class ProductPriceList(
 ```
 
 ### Creator
-The Creator takes the responsibility of creating certain other objects. This principe ask us who creates an Object? Or who should create a new instance of some class?
-This is principe about aggregation too. Not always we need to use DI, in some cases make sense to create an object inside an object when it is not separated part of this object and this object do not have a properties.
-For example Car and dor of this car.
+The Creator takes the responsibility of creating certain other objects. This principle asks us who creates an Object? Or who should create a new instance of some class?
+This is a principle about aggregation too. Not always we need to use DI, in some cases it makes sense to create an object inside an object when it is not a separate part of this object and this object does not have properties.
+For example Car and door of this car.
 
 [Creation design patterns](https://refactoring.guru/design-patterns/creational-patterns) provide various object creation mechanisms, which increase flexibility and reuse of existing code.
 
@@ -111,10 +111,10 @@ High Cohesion:
 Help to avoid a direct coupling between two or more elements. 
 Indirection introduces an intermediate unit to communicate between the other units, so that the other units are not directly coupled
 
-Patterns that helped to do it: [Adapter](https://refactoring.guru/design-patterns/adapter), [Facade](https://refactoring.guru/design-patterns/facade), [Obserever](https://refactoring.guru/design-patterns/observer)
+Patterns that helped to do it: [Adapter](https://refactoring.guru/design-patterns/adapter), [Facade](https://refactoring.guru/design-patterns/facade), [Observer](https://refactoring.guru/design-patterns/observer)
 
 ### Polymorphism
-Help to handle alternatives based on type. When related alternatives or behaviors vary by type (class), assingn responsibility for the behavior (using polymorphi operations) to the types for which the behavior varies.
+Help to handle alternatives based on type. When related alternatives or behaviors vary by type (class), assign responsibility for the behavior (using polymorphic operations) to the types for which the behavior varies.
 
 Patterns that helped to do it: [Strategy](https://refactoring.guru/design-patterns/strategy)
 

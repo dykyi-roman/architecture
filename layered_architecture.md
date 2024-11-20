@@ -32,6 +32,19 @@ _Notice: If you don't have logic in the **Application Layer**, an **Infrastructu
 * Projects with few dependencies on the infrastructure
 * Multiple small projects handled by the same group of people, such as an internal architecture for microservices
 
+### When NOT to apply
+* Highly complex domains requiring DDD tactical patterns
+* Applications needing multiple UI channels with different data requirements
+* Systems requiring independent scaling of different concerns
+* When strict layer boundaries would hinder performance
+* Microservices that are too small to benefit from layering
+
+### Related Patterns
+* [Clean Architecture](clean_architecture.md) - Evolution of layered architecture with dependency inversion
+* [Hexagonal Architecture](hexagonal_architecture.md) - Alternative approach focusing on ports and adapters
+* [DDD](ddd.md) - Can be combined for organizing domain layer
+* [Modular Monolithic Architecture](modular_monolithic_architecture.md) - Layering within modules
+
 ### How to implement
 * Divide applications into layers
 * Define interfaces for each layer
@@ -68,4 +81,4 @@ Keep your architecture clean help [Deptrac](https://qossmic.github.io/deptrac/) 
 * [Video - Software Application N-tier (Layered) Architecture design pattern](https://www.youtube.com/watch?app=desktop&v=V4RDMV0L-JM)
 * ---
 * [DTO for model abstraction](https://bitrock.it/blog/from-layered-to-hexagonal-architecture-hands-on.html)
-* [USer - UserEntity. What is the problem with this?](https://www.mscharhag.com/architecture/layer-onion-hexagonal-architecture)
+* [User - UserEntity. What is the problem with this?](https://www.mscharhag.com/architecture/layer-onion-hexagonal-architecture)

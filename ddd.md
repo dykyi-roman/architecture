@@ -23,7 +23,7 @@ We write code for people. Everything around us is an object. And we need to thin
 ![](docs/11.png)
 
 **Anti-corruption Layer** - Implement a facade or adapter layer between different subsystems that don't share the same semantics.
-It insures that one language doesn`t corrut the model of the other. 
+It ensures that one language doesn't corrupt the model of the other. 
 Example we want to integrate with legacy system, but we do not want to translate legacy code everywhere.
 ![](docs/10.png)
 
@@ -55,6 +55,20 @@ Exist a several way how we can valid it:
 
 Use field-level validation for command data transfer objects (DTOs) and domain-level validation within entities. This way we don't duplicate checks.
 Use data annotations at the application level in ViewModel classes (rather than in domain entities) that will accept input data to perform model validation at the UI level.
+
+### When NOT to apply
+* Simple CRUD applications without complex business rules
+* Applications with primarily technical complexity rather than domain complexity
+* Short-term projects or throwaway prototypes
+* Teams without domain experts available for collaboration
+* When the domain is well-understood and doesn't require exploration
+* Projects with extremely tight deadlines where learning curve is prohibitive
+
+### Related Patterns
+* [Clean Architecture](clean_architecture.md) - Provides structural guidelines for implementing DDD
+* [Hexagonal Architecture](hexagonal_architecture.md) - Complements DDD with ports and adapters
+* [CQRS](cqrs.md) - Often used together for complex domains
+* [Event-driven Architecture](event_driven_architecture.md) - Domain Events integrate naturally with EDA
 
 ### Summary
 * Easy support, understand, test.

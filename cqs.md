@@ -8,7 +8,7 @@ The fundamental idea is that we should divide an object's methods into two sharp
 A high-level overview of an application built using the CQS pattern. 
 A physical separation is possible and allows you to scale up on both “read” and “write” sides.
 But, this is fairly complex and leans more to [CQRS](cqrs.md)
-![cqrs](docs/3.png)
+![CQS Architecture Overview](docs/3.png)
 
 ## Rules
 * Commands and queries do not mix
@@ -20,6 +20,17 @@ But, this is fairly complex and leans more to [CQRS](cqrs.md)
 * Small and medium projects
 * Projects with moderate complexity
 * Systems with high readability
+
+## When NOT to implement
+* When a single operation must both modify and return data (e.g., stack.pop())
+* Simple scripts where separation adds unnecessary complexity
+* Performance-critical paths where the overhead of separation is unacceptable
+* Legacy systems where refactoring to CQS would require extensive changes
+
+## Related Patterns
+* [CQRS](cqrs.md) - Extended version of CQS applied at architectural level
+* [SOLID](solid.md) - CQS supports Single Responsibility Principle
+* [Event-driven Architecture](event_driven_architecture.md) - Commands often trigger events
 
 ## How to apply
 * Define commands and queries
@@ -51,7 +62,7 @@ But, this is fairly complex and leans more to [CQRS](cqrs.md)
 * Queries: have a return value that doesn't mutate state [SRP](https://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html)
 
 ### CODE
-:poop:
+### Bad Practice
 ```php
 interface JobInterface
 {
@@ -60,18 +71,18 @@ interface JobInterface
 }
 ```
 
-:heart:
+### Good Practice
 ```php
 final readonly class ReceiveJobsQuery
 {
-    public function __constructor(private string $title)
+    public function __construct(private string $title)
     {
     }
 }
 
 final readonly class CreateJobCommand
 {
-    public function __constructor(private object $value)
+    public function __construct(private object $value)
     {
     }
 }

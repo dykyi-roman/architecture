@@ -17,14 +17,14 @@ The hexagonal architecture is based on three principles and techniques:
 
 **Application** - an application service acts as a facade through which clients interact with the domain model.
 
-![cqrs](docs/5.png)
+![Hexagonal Architecture Diagram](docs/5.png)
 
 So far, we have only looked at what the hexagonal architecture looks like when applied to a single bounded context. But what happens when you have multiple bounded contexts that need to communicate with each other?
 In this case mapping between the different contexts would take place in the downstream system’s adapter. Client and Action have acted as ports and HTTP is an adapter between them.
-![cqrs](docs/7.png)
+![Bounded Contexts Communication](docs/7.png)
 
 The hexagonal architecture good scalable and suitable for implementing microservices. From a microservice’s perspective, all other microservices are parts of the outside world and are isolated via ports and adapters, just like the rest of the infrastructure.
-There is no fixed size limit; ![cqrs](docs/6.png)
+There is no fixed size limit; ![Microservices with Hexagonal Architecture](docs/6.png)
 
 ### Primary and Secondary Ports and Adapters
 From the example above, we have seen two types of ports and adapters – those that control the application (driving side) and those that are controlled by the application (driven side):
@@ -42,6 +42,19 @@ From the example above, we have seen two types of ports and adapters – those t
 * Systems with multiple entry and exit points
 * Systems subject to frequent changes
 * Microservice architecture
+
+### When NOT to apply
+* Simple scripts and utilities with no external dependencies
+* Applications where UI and database are tightly coupled by design (e.g., admin panels)
+* Prototypes where architecture flexibility is not a concern
+* Projects where the team is unfamiliar with the pattern and deadlines are tight
+* Single-purpose applications with one input and one output
+
+### Related Patterns
+* [Clean Architecture](clean_architecture.md) - Shares the same core principles of dependency inversion
+* [DDD](ddd.md) - Domain layer is often implemented using DDD tactical patterns
+* [Layered Architecture](layered_architecture.md) - Evolution from traditional layered approach
+* [CQRS](cqrs.md) - Can be implemented within the hexagonal structure
 
 ### How to implement
 * Identify the Domain Model

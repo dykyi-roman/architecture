@@ -10,13 +10,13 @@ Object mapping can become complicated. On the write side, the model may implemen
 As a result, you can end up with an overly complex model that does too much.
 
 [Master-slave](https://www.linkedin.com/pulse/master-slave-database-architecture-kartik-madnani) is a way to optimize the I/O in your application other than using caching.
-![cqrs](docs/1.png)
+![Basic CQRS Pattern](docs/1.png)
 
 A more advanced version has a separation of writing and reading to different databases.
-![cqrs](docs/2.png)
+![CQRS with Separate Databases](docs/2.png)
 
 On the microservice level use [database per service pattern](https://microservices.io/patterns/data/database-per-service.html) to write and define a view database for read, which is a read-only replica that is designed to support that query.
-![cqrs](docs/4.png)
+![CQRS in Microservices](docs/4.png)
 
 ### [CQR or CQRS](cqs_cqrs.md)
 
@@ -35,6 +35,20 @@ On the microservice level use [database per service pattern](https://microservic
 * Scenarios where the performance of data reads must be fine-tuned separately from the performance of data writes
 * Scenarios where one team of developers can focus on the complex domain model that is part of the write model, and another team can focus on the read model and the user interfaces
 * Integration with other systems, especially in combination with event sourcing, where the temporal failure of one subsystem shouldn't affect the availability of the others
+
+### When NOT to apply
+* Simple domains with straightforward CRUD operations
+* Applications where read and write patterns are similar
+* Small teams where maintaining separate models increases cognitive load
+* When eventual consistency is not acceptable for the business
+* Projects without the infrastructure to support separate read/write stores
+* When the added complexity outweighs the benefits (premature optimization)
+
+### Related Patterns
+* [CQS](cqs.md) - The foundational principle that CQRS extends
+* [Event-driven Architecture](event_driven_architecture.md) - Natural companion for synchronizing read models
+* [DDD](ddd.md) - CQRS is most beneficial in complex domains modeled with DDD
+* [Microservice Architecture](microservice_architecture.md) - CQRS works well in distributed systems
 
 ### How to implement
 * Define commands and requests

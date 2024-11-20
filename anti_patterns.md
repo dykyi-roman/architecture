@@ -2,6 +2,30 @@
 
 ## Anti-patterns
 
+## Table of Contents
+- [Shared Kernel (Code)](#shared-kernel-code)
+- [Copy and Paste](#copy-and-paste)
+- [MVC (Model-View-Controller)](#mvc-model-view-controller)
+- [Controller](#controller)
+- [Monolithic](#monolithic)
+- [Spaghetti code](#spaghetti-code)
+- [Big Ball of Mud](#big-ball-of-mud)
+- [Hard code](#hard-code)
+- [Overengineering](#overengineering)
+- [Reinventing the wheel](#reinventing-the-wheel)
+- [Dead code](#dead-code)
+- [God Object](#god-object)
+- [Golden Hammer](#golden-hammer)
+- [Boat Anchor](#boat-anchor)
+- [Service Avalanche](#service-avalanche)
+- [Dependency hell](#dependency-hell)
+- [Race condition](#race-condition)
+- [Null hell](#null-hell)
+- [Trait](#trait)
+- [Singleton](#singleton)
+- [Anemic model](#anemic-model)
+- [ActiveRecord](#activerecord)
+
 * Shared Kernel (Code)
 * Copy and Paste
 * MVC (Model-View-Controller)
@@ -43,23 +67,30 @@ Disadvantages:
 
 ### Copy and Paste
 
-The task is completed faster, but bring language support for this code in the future. Should be detected and refactoring on the review step or creating a tech dept task for fixing the feature.
+The task is completed faster, but brings language support burden for this code in the future. Should be detected and refactored on the review step or by creating a tech debt task for fixing the feature.
 
-* The developer, instead of refactoring, adds one more similar code (condition as an example). 
-* The developer copies the same code from different contexts. Each context has its own rules and behaviors, copying someone else's code we do not understand the logic of work. Better to use DI or extend if we want to reuse some please of the code instead of copying. 
-* Copy please of code from third-party resources (Github, StackOverflow). By copying code, we copy solutions to someone else's problem. and in 90% of cases, it will not suit your code.
+* The developer, instead of refactoring, adds one more similar code (condition as an example).
+* The developer copies the same code from different contexts. Each context has its own rules and behaviors, copying someone else's code we do not understand the logic of work. Better to use DI or extend if we want to reuse some piece of the code instead of copying.
+* Copy a piece of code from third-party resources (Github, StackOverflow). By copying code, we copy solutions to someone else's problem and in 90% of cases, it will not suit your code.
 
 ### MVC (Model-View-Controller)
 
-I advise you to avoid this pattern. Since it is definitely not suitable for writing long-term enterprise applications.
-Coming from the description, we can conclude that we have no place for organization our business logic.
+> **Note:** MVC is not an anti-pattern per se, but rather a pattern with a limited scope of applicability. It works well for simple CRUD applications, prototypes, and small projects, but has limitations for complex enterprise applications.
 
-Most of Web Application Developers use MVC architecture patterns to create applications. But when we dive into history, we discover that MVC was proposed way before Web Application were even taken into consideration.
-It was proposed in 1979 by **[Trygve Reenskaug](https://en.wikipedia.org/wiki/Trygve_Reenskaug)**. It was designed to handle small parts of desktop application buttons, text boxes, etc. Not a whole application or a whole page. As time passed, this pattern evolved
+Traditional MVC may not be the best choice for long-term enterprise applications with complex business logic. The pattern doesn't clearly define where to place business logic, which often leads to "fat controllers" or "anemic models".
+
+Most web application developers use MVC architecture patterns to create applications. But when we dive into history, we discover that MVC was proposed way before web applications were even taken into consideration.
+It was proposed in 1979 by **[Trygve Reenskaug](https://en.wikipedia.org/wiki/Trygve_Reenskaug)**. It was designed to handle small parts of desktop application buttons, text boxes, etc. Not a whole application or a whole page. As time passed, this pattern evolved.
 
 * Model - must be rich, characterized by combining data and behavior and only keeping a thin service above
 * Controller - business logic, located in methods called **Actions** and usually containing an algorithm mainly in a procedural style
 * View - accepts variables and displays views
+
+**When MVC is appropriate:**
+* Simple CRUD applications
+* Rapid prototyping
+* Small projects with straightforward business logic
+* Learning and educational purposes
 
 ### Controller
 
@@ -220,23 +251,40 @@ Solution: Use [Fail fast](https://www.yegor256.com/2015/08/25/fail-fast.html) ap
 
 ### Trait
 
-Problems:
+> **Note:** Traits are not inherently bad. They have legitimate use cases but can be misused, leading to code quality issues.
+
+Problems when misused:
 * Tight coupling
 * Broken OCP
 * Cannot be overwritten through inheritance
 * Not testable in isolation
 * Harder code understanding
 
-Solution: Use inheritance instead of traits!
+**Legitimate use cases:**
+* Test helpers and fixtures (e.g., `RefreshDatabase`, `WithFaker`)
+* Cross-cutting concerns that don't fit inheritance (e.g., `Loggable`, `Timestampable`)
+* Framework-specific behaviors (e.g., Laravel's `SoftDeletes`, `HasFactory`)
+* Shared behavior across unrelated classes where composition is impractical
+
+Solution: Prefer composition over traits. Use inheritance or interfaces when possible. If using traits, keep them small and focused on a single responsibility.
 
 ### Singleton
 
-Problems:
-* Difficulty testing
-* Memory allocated to a Singleton can't be freed
-* Global unique instance
+> **Note:** Singleton is often considered an anti-pattern due to its global state, but there are justified use cases where it remains appropriate.
 
-Solution: Use a single instance and propagate it to places that use the object as a parameter to make the dependency explicit
+Problems:
+* Difficulty testing (hidden dependencies)
+* Memory allocated to a Singleton can't be freed
+* Global unique instance creates tight coupling
+* Makes parallel testing difficult
+
+**Justified use cases:**
+* Logger instances (application-wide logging configuration)
+* Configuration/Settings managers (read-only after initialization)
+* Connection pools and caches
+* Hardware interface access (e.g., printer spooler)
+
+Solution: Prefer Dependency Injection with a single instance registered in the container. This makes dependencies explicit and testing easier while maintaining the "single instance" behavior.
 
 ### Anemic model
 
@@ -251,14 +299,22 @@ Solution: Use a Rich model
 
 ### ActiveRecord
 
-Active Record is one of the most controversial architectural patterns with many supporters and opponents.
+> **Note:** Active Record is one of the most controversial architectural patterns with many supporters and opponents. It's not universally bad but has specific contexts where it excels or fails.
 
-Problems:
-* Broken OOP and SRP
+Problems in complex domains:
+* Broken OOP and SRP (entity knows how to persist itself)
 * Mixing Infrastructure and Domain layers
 * High coupling makes writing unit tests almost impossible
+* Difficult to implement complex business rules
 
-Solution: Use Datta Mapper Pattern
+**When ActiveRecord is appropriate:**
+* Simple CRUD applications without complex business logic
+* Rapid prototyping and MVPs
+* Small to medium projects with straightforward data models
+* When development speed is more important than architectural purity
+* Admin panels and backoffice applications
+
+Solution for complex domains: Use Data Mapper Pattern (e.g., Doctrine ORM) to separate domain logic from persistence concerns.
 
 ### Read
 * [Антипаттерны в программировании и проектировании архитектуры](https://bool.dev/blog/detail/antipatterny-v-programmirovanii-i-proektirovanii-arkhitektury)

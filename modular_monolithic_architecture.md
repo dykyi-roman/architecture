@@ -69,4 +69,4 @@ Monorepos are sometimes called monolithic repositories, but they should not be c
 * [Majestic Modular Monoliths](https://lukashajdu.com/post/majestic-modular-monolith/)
 * [Microservices Killer: Modular Monolithic Architecture](https://medium.com/design-microservices-architecture-with-patterns/microservices-killer-modular-monolithic-architecture-ac83814f6862)
 * [12 Ways to Improve Your Monolith Before Transitioning to Microservices](https://semaphoreci.com/blog/monolith-microservices)
-* [](https://semaphoreci.com/blog/what-is-monorepo)
+* [What is a Monorepo?](https://semaphoreci.com/blog/what-is-monorepo)
