@@ -18,61 +18,86 @@ Information expert might be the most important of all the GRASP patterns. This p
 
 #### CODE
 ### Bad Practice
-````php
-final readonly class ProductPriceItem(
-    private int $amount,
-    private int $price,
-) {
+```php
+final readonly class ProductPriceItem
+{
+    public function __construct(
+        public int $amount,
+        public int $price,
+    ) {
+    }
 }
 
-final readonly class ProductPriceList(
-    private ProductPriceItem ...$items,
-) {
+final readonly class ProductPriceList
+{
+    /** @var ProductPriceItem[] */
+    private array $items;
+
+    public function __construct(ProductPriceItem ...$items)
+    {
+        $this->items = $items;
+    }
 }
 
 $productPriceList = new ProductPriceList(
-    new ProductPriceItem(1,2),
-    new ProductPriceItem(2,3),
-    new ProductPriceItem(3,4),
-    new ProductPriceItem(4,5),
+    new ProductPriceItem(1, 2),
+    new ProductPriceItem(2, 3),
+    new ProductPriceItem(3, 4),
+    new ProductPriceItem(4, 5),
 );
 
+// Bad: calculation logic is OUTSIDE the class that owns the data
 $sum = 0;
-foreach ($productPriceList as $item) {
-    $sum += $item->amount * $item->price;  
+foreach ($productPriceList->getItems() as $item) {
+    $sum += $item->amount * $item->price;
 }
-````
+```
+
 ### Good Practice
 ```php
-final readonly class ProductPriceItem(
-    private int $amount,
-    private int $price,
-) {
-    public function price(): int
+final readonly class ProductPriceItem
+{
+    public function __construct(
+        private int $amount,
+        private int $price,
+    ) {
+    }
+
+    // Good: calculation is WHERE the data lives
+    public function totalPrice(): int
     {
         return $this->amount * $this->price;
     }
 }
 
-final readonly class ProductPriceList(
-    private ProductPriceItem ...$items,
-) {
+final readonly class ProductPriceList
+{
+    /** @var ProductPriceItem[] */
+    private array $items;
+
+    public function __construct(ProductPriceItem ...$items)
+    {
+        $this->items = $items;
+    }
+
+    // Good: aggregation logic is in the collection class
     public function total(): int
     {
         $sum = 0;
         foreach ($this->items as $item) {
-            $sum += $item->price();  
+            $sum += $item->totalPrice();
         }
-        
+
         return $sum;
     }
 }
 
-(new ProductPriceList(
-    new ProductPriceItem(1,2),
-    new ProductPriceItem(2,3),
-    new ProductPriceItem(3,4),
-    new ProductPriceItem(4,5),
+// Clean usage - no external calculation needed
+$total = (new ProductPriceList(
+    new ProductPriceItem(1, 2),
+    new ProductPriceItem(2, 3),
+    new ProductPriceItem(3, 4),
+    new ProductPriceItem(4, 5),
 ))->total();
 ```
 

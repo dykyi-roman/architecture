@@ -28,73 +28,103 @@ These principles are part of a larger set of principles promoted by Robert C. Ma
 ### CODE
 
 #### Single responsibility principle
+
+SRP states that a class should have only **one reason to change** — meaning it should be responsible to only one actor (stakeholder). Having multiple methods is not a violation; mixing responsibilities for different actors is.
+
 ### Bad Practice
 ```php
-final readonly class Job
+final readonly class UserService
 {
-    public function partTimeJob(): void
-    {
+    public function __construct(
+        private UserRepository $repository,
+        private Mailer $mailer,
+        private ReportGenerator $reportGenerator,
+    ) {
     }
-    
-    public function fullDayJob(): void
-    {   
-    }
-    
-    //SRP broken, available methods for two actors
-}
 
+    // For HR department - employee management
+    public function updateEmployeeData(User $user): void
+    {
+        $this->repository->save($user);
+    }
+
+    // For Marketing department - notifications
+    public function sendPromotionalEmail(User $user): void
+    {
+        $this->mailer->send($user->email(), 'Promotion!');
+    }
+
+    // For Finance department - reporting
+    public function generateSalaryReport(): Report
+    {
+        return $this->reportGenerator->generate();
+    }
+
+    // SRP broken: this class serves THREE different actors (HR, Marketing, Finance)
+    // Changes requested by one department may affect others
+}
 ```
+
 ### Good Practice
 ```php
-interface JobInterface
-{
-    public function execute(object $value): void;
-}
+// Each class serves ONE actor and has ONE reason to change
 
-final readonly class PartTimeJob implements JobInterface
+final readonly class EmployeeService
 {
-    public function execute(object $value): void
+    public function __construct(private UserRepository $repository)
     {
+    }
+
+    public function updateEmployeeData(User $user): void
+    {
+        $this->repository->save($user);
     }
 }
 
-final readonly class FullDayJob implements JobInterface
+final readonly class MarketingNotificationService
 {
-    public function execute(object $value): void
+    public function __construct(private Mailer $mailer)
     {
+    }
+
+    public function sendPromotionalEmail(User $user): void
+    {
+        $this->mailer->send($user->email(), 'Promotion!');
+    }
+}
+
+final readonly class SalaryReportService
+{
+    public function __construct(private ReportGenerator $reportGenerator)
+    {
+    }
+
+    public function generate(): Report
+    {
+        return $this->reportGenerator->generate();
     }
 }
 ```
 
 ### Open close principle
+
+OCP states that software entities should be **open for extension but closed for modification**. The key is that adding new behavior should not require changing existing, tested code.
+
+**Note:** Factories with `match`/`switch` are acceptable extension points — they exist specifically to know about concrete types. OCP violation occurs when business logic requires modification for new types.
+
 ### Bad Practice
 ```php
-final readonly class Employment
+final readonly class DiscountCalculator
 {
-    public function office(): void
+    public function calculate(Order $order): Money
     {
-    }
-    
-    public function remote(): void
-    {   
-    }
-    
-    // OCP will be broken when we add a new employment type here
-}
-
-final readonly class EmploymentFactory
-{
-    public function __construct(
-        private Employment $employment,
-    ) {
-    }
-
-    public function create(string $type): Employment
-    {
-        return match ($type) {
-            'office' => $this->employment->office(),
-            'remote' => $this->employment->remote(),
-            default => throw new \RuntimeException(sprintf('Unsupported employment type: %s', $type)),
+        // OCP violated: adding new customer type requires modifying this method
+        return match ($order->customerType()) {
+            'regular' => $order->total()->multiply(0.0),
+            'premium' => $order->total()->multiply(0.1),
+            'vip' => $order->total()->multiply(0.2),
+            // Adding 'enterprise' customer requires changing THIS class
+            default => throw new \RuntimeException('Unknown customer type'),
         };
     }
 }
@@ -102,38 +132,71 @@ final readonly class EmploymentFactory
 
 ### Good Practice
 ```php
-interface EmploymentInterface
+interface DiscountStrategyInterface
 {
-    public function job(): void;
+    public function calculate(Order $order): Money;
+    public function supports(string $customerType): bool;
 }
 
-final readonly class Office implements EmploymentInterface
+final readonly class RegularCustomerDiscount implements DiscountStrategyInterface
 {
-     public function job(): void
-     {
-     }
-}
-
-final readonly class Remote implements EmploymentInterface
-{
-     public function job(): void
-     {
-     }
-}
-
-final readonly class EmploymentFactory
-{
-    public static function create(string $type): EmploymentInterface
+    public function calculate(Order $order): Money
     {
-        return match ($type) {
-            'office' => new Office(),
-            'remote' => new Remote()
-            default => throw new \RuntimeException(sprintf('Unsupported employment type: %s', $type)),
-        };
+        return $order->total()->multiply(0.0);
+    }
+
+    public function supports(string $customerType): bool
+    {
+        return $customerType === 'regular';
     }
 }
 
-EmploymentFactory::create($request->type)->job();
+final readonly class PremiumCustomerDiscount implements DiscountStrategyInterface
+{
+    public function calculate(Order $order): Money
+    {
+        return $order->total()->multiply(0.1);
+    }
+
+    public function supports(string $customerType): bool
+    {
+        return $customerType === 'premium';
+    }
+}
+
+// Adding new discount: just create new class, no modification needed
+final readonly class EnterpriseCustomerDiscount implements DiscountStrategyInterface
+{
+    public function calculate(Order $order): Money
+    {
+        return $order->total()->multiply(0.25);
+    }
+
+    public function supports(string $customerType): bool
+    {
+        return $customerType === 'enterprise';
+    }
+}
+
+// This class is CLOSED for modification, OPEN for extension via new strategies
+final readonly class DiscountCalculator
+{
+    /** @param iterable<DiscountStrategyInterface> $strategies */
+    public function __construct(private iterable $strategies)
+    {
+    }
+
+    public function calculate(Order $order): Money
+    {
+        foreach ($this->strategies as $strategy) {
+            if ($strategy->supports($order->customerType())) {
+                return $strategy->calculate($order);
+            }
+        }
+
+        return Money::zero();
+    }
+}
 ```
 
 ### Liskov substitution principle
@@ -167,26 +230,26 @@ class HalfDaySalaryCalculator extends FullDaySalaryCalculator
 ```php
 interface SalaryCalculatorInterface
 {
-    public function calculate(int $days, int $amount): int
+    public function calculate(int $days, int $amount): int;
 }
 
-final readonly FullDaySalaryCalculator implements SalaryCalculatorInterface
+final readonly class FullDaySalaryCalculator implements SalaryCalculatorInterface
 {
     private const HOURS = 8;
-    
+
     public function calculate(int $days, int $amount): int
     {
-        return self::HOURS * $days * $amount; 
+        return self::HOURS * $days * $amount;
     }
 }
 
-final readonly HalfDaySalaryCalculator implements SalaryCalculatorInterface
+final readonly class HalfDaySalaryCalculator implements SalaryCalculatorInterface
 {
     private const HOURS = 4;
-    
+
     public function calculate(int $days, int $amount): int
     {
-        return self::HOURS * $days * $amount; 
+        return self::HOURS * $days * $amount;
     }
 }
 ```

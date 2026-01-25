@@ -169,6 +169,178 @@ Load Balancer, on the other hand, is responsible for distributing incoming reque
 
 **Possible Workflow: Clients => Load Balancer => API Gateway => API BackEnd**  
 
+## Saga Pattern
+
+Sagas manage distributed transactions across microservices through a sequence of local transactions.
+
+### Choreography (Event-driven)
+
+Each service publishes events and listens for events from other services.
+
+```
+Order Service → OrderCreated event
+    ↓
+Inventory Service (listens) → InventoryReserved event
+    ↓
+Payment Service (listens) → PaymentProcessed event
+    ↓
+Order Service (listens) → Order confirmed
+```
+
+**Pros:** Loose coupling, no single point of failure
+**Cons:** Hard to track flow, cyclic dependencies possible
+
+### Orchestration (Centralized)
+
+A central coordinator tells each service what to do.
+
+```
+Saga Orchestrator
+    ├── 1. Tell Inventory Service: Reserve items
+    ├── 2. Tell Payment Service: Process payment
+    ├── 3. Tell Shipping Service: Schedule delivery
+    └── 4. Tell Order Service: Confirm order
+```
+
+**Pros:** Easy to understand flow, centralized error handling
+**Cons:** Single point of failure, orchestrator can become complex
+
+```php
+final class OrderSagaOrchestrator
+{
+    public function execute(CreateOrderCommand $command): void
+    {
+        $sagaState = new SagaState($command->orderId());
+
+        try {
+            // Step 1
+            $this->inventoryService->reserve($command->items());
+            $sagaState->complete('inventory');
+
+            // Step 2
+            $this->paymentService->charge($command->payment());
+            $sagaState->complete('payment');
+
+            // Step 3
+            $this->orderService->confirm($command->orderId());
+            $sagaState->complete('order');
+
+        } catch (\Throwable $e) {
+            $this->compensate($sagaState, $command);
+            throw new SagaFailedException($e);
+        }
+    }
+
+    private function compensate(SagaState $state, CreateOrderCommand $command): void
+    {
+        if ($state->isCompleted('payment')) {
+            $this->paymentService->refund($command->payment());
+        }
+        if ($state->isCompleted('inventory')) {
+            $this->inventoryService->release($command->items());
+        }
+    }
+}
+```
+
+## Strangler Fig Pattern
+
+Gradually migrate from monolith to microservices by replacing functionality incrementally.
+
+```
+Phase 1: Route all traffic through facade
+┌─────────┐     ┌─────────┐     ┌───────────┐
+│ Clients │ ──► │ Facade  │ ──► │ Monolith  │
+└─────────┘     └─────────┘     └───────────┘
+
+Phase 2: Extract first microservice
+┌─────────┐     ┌─────────┐     ┌───────────┐
+│ Clients │ ──► │ Facade  │ ──► │ Monolith  │
+└─────────┘     └────┬────┘     └───────────┘
+                     │
+                     └──────►  ┌─────────────┐
+                               │ User Service│
+                               └─────────────┘
+
+Phase 3: Continue extracting
+┌─────────┐     ┌─────────┐     ┌───────────┐
+│ Clients │ ──► │ Facade  │ ──► │ Monolith  │ (shrinking)
+└─────────┘     └────┬────┘     └───────────┘
+                     │
+              ┌──────┼──────┐
+              ▼      ▼      ▼
+         ┌───────┐ ┌───────┐ ┌───────┐
+         │ User  │ │ Order │ │ Stock │
+         └───────┘ └───────┘ └───────┘
+```
+
+**Key principles:**
+1. Never modify the monolith
+2. Route traffic through a facade/proxy
+3. Extract one bounded context at a time
+4. Keep both systems running during migration
+5. Delete monolith code only after full migration
+
+## Sidecar Pattern
+
+Deploy helper components alongside the main service.
+
+```
+┌─────────────────────────────────┐
+│            Pod                  │
+│  ┌─────────────┐  ┌──────────┐ │
+│  │   Service   │  │ Sidecar  │ │
+│  │   (main)    │◄─┤ (proxy)  │ │
+│  └─────────────┘  └──────────┘ │
+└─────────────────────────────────┘
+```
+
+**Use cases:**
+* Service mesh proxies (Envoy, Istio)
+* Log collectors
+* Configuration agents
+* SSL termination
+
+## Service Mesh
+
+Infrastructure layer for service-to-service communication.
+
+```
+┌─────────────────────────────────────────────┐
+│              Control Plane                   │
+│  (Istio, Linkerd - manages configuration)   │
+└─────────────────────────────────────────────┘
+              │         │         │
+              ▼         ▼         ▼
+┌─────────┐ ┌─────────┐ ┌─────────┐
+│ Service │ │ Service │ │ Service │
+│ + Proxy │ │ + Proxy │ │ + Proxy │
+└────┬────┘ └────┬────┘ └────┬────┘
+     └───────────┴───────────┘
+         Data Plane (Envoy proxies)
+```
+
+**Features:**
+* Traffic management (routing, load balancing)
+* Security (mTLS, authorization)
+* Observability (metrics, tracing)
+* Resilience (retries, circuit breakers)
+
+## When NOT to Apply
+
+* Small teams (< 5-10 developers)
+* Simple domains without clear boundaries
+* When you can't afford the operational complexity
+* Startups validating product-market fit
+* When low latency is critical (network overhead)
+
+## Related Patterns
+
+* [Event-driven Architecture](event_driven_architecture.md) - Async communication between services
+* [CQRS](cqrs.md) - Separate read/write models per service
+* [DDD](ddd.md) - Bounded contexts map to microservices
+* [API Design](api_design.md) - Service communication contracts
+
 ### Summary
 * Easy test, support, deploy, scale, create tasks
 * Free choice of technologies

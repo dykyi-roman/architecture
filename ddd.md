@@ -30,10 +30,12 @@ Example we want to integrate with legacy system, but we do not want to translate
 ## Tactical patterns
 * **Entities** - it is a potentially changeable object, which has a unique identifier. **Entities** have a life of their own within their **Domain Model**
 * **Value Objects** - differentiates a **Value Object** from an Entity is that, Value Objects are immutable and do not have a unique identity. The consequence of this immutability is that in order to update a **Value Object**, you must create a new instance to replace the old one
-* **Aggregates** - it based on two other Tactical Standards, which are Entities and Value Objects
-* **Services** - stateless objects that perform some logic that do not fit with an operation on an **Entity** or **Value Object**
+* **Aggregates** - a cluster of domain objects (Entities and Value Objects) that are treated as a single unit for data changes. Each Aggregate has a **root** (Aggregate Root) and a **consistency boundary**. External objects can only reference the Aggregate Root, never internal entities. All changes within the Aggregate must maintain business invariants and be persisted in a single transaction
+* **Services** - stateless objects that perform some logic that do not fit with an operation on an **Entity** or **Value Object**. There are two types:
+  * **Domain Services** - contain business logic that doesn't belong to a single Entity (e.g., `TransferMoneyService` between accounts)
+  * **Application Services** - orchestrate use cases, handle transactions, security, but contain NO business logic
 * **Factories** - used to provide an abstraction in the construction of an Object, and can return an **Aggregate** root, an **Entity**, or an **Value Object**. Factories are an alternative for building objects that have complexity in building via the constructor method
-* **Repositories** - mainly used to deal with storage, they abstract concerns about data storage. They are responsible for persisting **Aggregates**
+* **Repositories** - mainly used to deal with storage, they abstract concerns about data storage. They are responsible for persisting **Aggregates**. Repository interface is defined in Domain layer, implementation in Infrastructure
 * **Events** - indicate significant occurrences that have occurred in the domain and need to be reported to other stakeholders belonging to the domain. It is common for **Aggregates** to publish events
 * **Modules** - help us segregate concepts, can be defined as a package/namespace, and always follow the **Ubiquitous Language**
 
@@ -41,8 +43,207 @@ Example we want to integrate with legacy system, but we do not want to translate
 
 ### Aggregates
 
-Aggregate should be the single entry point for updates using methods or operations in the root aggregate class. 
+Aggregate should be the single entry point for updates using methods or operations in the root aggregate class.
 Changes to entities in an aggregate should occur only through the root of the aggregate.
+
+#### Aggregate Example
+
+```php
+// Value Objects
+final readonly class OrderId
+{
+    private function __construct(private string $value)
+    {
+    }
+
+    public static function generate(): self
+    {
+        return new self(Uuid::v4()->toString());
+    }
+
+    public static function fromString(string $value): self
+    {
+        return new self($value);
+    }
+
+    public function toString(): string
+    {
+        return $this->value;
+    }
+}
+
+final readonly class Money
+{
+    public function __construct(
+        private int $amount,
+        private Currency $currency,
+    ) {
+        if ($amount < 0) {
+            throw new InvalidArgumentException('Amount cannot be negative');
+        }
+    }
+
+    public function add(self $other): self
+    {
+        $this->ensureSameCurrency($other);
+        return new self($this->amount + $other->amount, $this->currency);
+    }
+
+    public function multiply(float $factor): self
+    {
+        return new self((int) round($this->amount * $factor), $this->currency);
+    }
+
+    private function ensureSameCurrency(self $other): void
+    {
+        if (!$this->currency->equals($other->currency)) {
+            throw new CurrencyMismatchException();
+        }
+    }
+}
+
+// Entity (internal to Aggregate)
+final class OrderItem
+{
+    public function __construct(
+        private OrderItemId $id,
+        private ProductId $productId,
+        private int $quantity,
+        private Money $unitPrice,
+    ) {
+        if ($quantity <= 0) {
+            throw new InvalidArgumentException('Quantity must be positive');
+        }
+    }
+
+    public function totalPrice(): Money
+    {
+        return $this->unitPrice->multiply($this->quantity);
+    }
+
+    public function increaseQuantity(int $amount): void
+    {
+        if ($amount <= 0) {
+            throw new InvalidArgumentException('Amount must be positive');
+        }
+        $this->quantity += $amount;
+    }
+}
+
+// Aggregate Root
+final class Order
+{
+    private OrderStatus $status;
+    /** @var OrderItem[] */
+    private array $items = [];
+    /** @var DomainEvent[] */
+    private array $domainEvents = [];
+
+    private function __construct(
+        private OrderId $id,
+        private CustomerId $customerId,
+        private \DateTimeImmutable $createdAt,
+    ) {
+        $this->status = OrderStatus::DRAFT;
+    }
+
+    public static function create(OrderId $id, CustomerId $customerId): self
+    {
+        $order = new self($id, $customerId, new \DateTimeImmutable());
+        $order->recordEvent(new OrderCreated($id, $customerId));
+
+        return $order;
+    }
+
+    // Business method with invariant protection
+    public function addItem(ProductId $productId, int $quantity, Money $unitPrice): void
+    {
+        $this->ensureCanBeModified();
+
+        // Check if product already exists
+        foreach ($this->items as $item) {
+            if ($item->productId()->equals($productId)) {
+                $item->increaseQuantity($quantity);
+                return;
+            }
+        }
+
+        $this->items[] = new OrderItem(
+            OrderItemId::generate(),
+            $productId,
+            $quantity,
+            $unitPrice,
+        );
+    }
+
+    public function submit(): void
+    {
+        $this->ensureCanBeModified();
+
+        // Invariant: order must have at least one item
+        if (empty($this->items)) {
+            throw new EmptyOrderException('Cannot submit empty order');
+        }
+
+        $this->status = OrderStatus::SUBMITTED;
+        $this->recordEvent(new OrderSubmitted($this->id, $this->total()));
+    }
+
+    public function cancel(string $reason): void
+    {
+        if ($this->status === OrderStatus::SHIPPED) {
+            throw new OrderCannotBeCancelledException('Shipped orders cannot be cancelled');
+        }
+
+        $this->status = OrderStatus::CANCELLED;
+        $this->recordEvent(new OrderCancelled($this->id, $reason));
+    }
+
+    public function total(): Money
+    {
+        $total = Money::zero(Currency::USD);
+        foreach ($this->items as $item) {
+            $total = $total->add($item->totalPrice());
+        }
+        return $total;
+    }
+
+    private function ensureCanBeModified(): void
+    {
+        if ($this->status !== OrderStatus::DRAFT) {
+            throw new OrderCannotBeModifiedException(
+                sprintf('Order in status %s cannot be modified', $this->status->value)
+            );
+        }
+    }
+
+    private function recordEvent(DomainEvent $event): void
+    {
+        $this->domainEvents[] = $event;
+    }
+
+    /** @return DomainEvent[] */
+    public function pullDomainEvents(): array
+    {
+        $events = $this->domainEvents;
+        $this->domainEvents = [];
+        return $events;
+    }
+
+    // Getters
+    public function id(): OrderId { return $this->id; }
+    public function status(): OrderStatus { return $this->status; }
+    public function itemsCount(): int { return count($this->items); }
+}
+```
+
+#### Key Principles Demonstrated
+
+1. **Single Entry Point** - All modifications go through Order (Aggregate Root)
+2. **Invariant Protection** - `ensureCanBeModified()` checks business rules before changes
+3. **Encapsulation** - OrderItem is not directly accessible from outside
+4. **Always Valid** - Constructor and methods ensure Order is never in invalid state
+5. **Domain Events** - Significant changes record events for eventual consistency
 
 #### Invariants
 The main responsibility of an aggregate is to enforce invariants across state changes for all the entities within that aggregate.

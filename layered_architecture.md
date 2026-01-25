@@ -3,10 +3,10 @@
 ## Layered Architecture
 The goal of traditional Layered Architecture is to segregate an application into different tiers, where each tier contains modules and classes that have shared or similar responsibilities, and work together to perform specific tasks.
 As a result, our application will be divided into small, decoupled, components. Each of these components belongs to one of the 4 Major Layers:
-* Presentation Layer - Responsible for data display and interaction with the outside world. This layer often includes user interfaces, web pages, console commands, and APIs.
-* Application layer - It manages the business logic and dictates how the application carries out its tasks. It processes data coming from the presentation layer and interacts with underlying layers to perform operations."
-* Domain layer - Implements rules and algorithms that define system behavior. This is where the main logic of the application is executed
-* Infrastructure layer - It includes everything needed to persist data, communicate over the network, interact with third-party systems, and perform other low-level, technology-specific operations.
+* **Presentation Layer** - Responsible for data display and interaction with the outside world. This layer often includes user interfaces, web pages, console commands, and APIs. It receives input, validates format, and delegates to Application layer.
+* **Application Layer** - Orchestrates use cases and coordinates the flow of data between Presentation and Domain layers. It does **NOT contain business logic** — only workflow coordination, transaction management, authorization checks, and DTO transformations. Think of it as a thin layer that tells the domain "what to do" but not "how to do it".
+* **Domain Layer** - The heart of the application. Contains all business rules, domain logic, entities, value objects, and domain services. This is where the actual business decisions are made. This layer has NO dependencies on other layers.
+* **Infrastructure Layer** - It includes everything needed to persist data, communicate over the network, interact with third-party systems, and perform other low-level, technology-specific operations. Implements interfaces defined in Domain layer.
 ![8.png](docs/8.png)
 _Notice: If you don't have logic in the **Application Layer**, an **Infrastructure layer** call is allowed, so as not to create a proxy class._
 

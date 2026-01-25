@@ -26,29 +26,6 @@
 - [Anemic model](#anemic-model)
 - [ActiveRecord](#activerecord)
 
-* Shared Kernel (Code)
-* Copy and Paste
-* MVC (Model-View-Controller)
-* Controller
-* Monolithic
-* Spaghetti code
-* Big Ball of Mud
-* Hard code
-* Overengineering
-* Reinventing the wheel
-* Dead code
-* God Object
-* Golden Hammer
-* Boat Anchor
-* Service Avalanche
-* Dependency hell
-* Race condition
-* Null hell
-* Trait
-* Singleton
-* Anemic model
-* ActiveRecord
-
 ### Shared Kernel (Code)
 The architectural anti-pattern occurs when multiple independent teams or services within a microservices architecture (or other distributed systems) use shared code or a common part of the core. While the idea may seem appealing for improving consistency and code reuse, in practice, it leads to a number of problems.
 

@@ -1,62 +1,133 @@
-# [Architecture](README.md)
+# Software Architecture Guide
 
-## Software Architectural Patterns and development approaches
+A comprehensive guide to software architectural patterns, principles, and best practices for building scalable, maintainable applications.
 
-Architecture is a structure, a way to distribute your application components in various groups. There is not a single way to organize your projects because it could depend on several aspects like project state, team size, time constraints, etc
+## Table of Contents
 
-An architectural pattern is a general, reusable resolution to a commonly occurring problem in software architecture within a given context.
-Pattern is an implementation that solves a particular problem. A principle is an abstraction, a guide to design.
+- [Principles](#principles)
+- [Architectural Patterns](#architectural-patterns)
+- [Data & Integration Patterns](#data--integration-patterns)
+- [Quality & Operations](#quality--operations)
+- [Development Practices](#development-practices)
+- [Resources](#resources)
 
-There is no single way to structure a project, and each architecture has its own characteristics. 
-Even though you do not define an architecture, following the next principles will lead you to maintain a well-organized code.
+---
 
-* [DIP](dip.md)
-* [SOLID](solid.md)
-* [GRASP](grasp.md)
-* [CQS](cqs.md)
-* [CQRS](cqrs.md)
-* [Clean Architecture](clean_architecture.md)
-* [Hexagonal Architecture](hexagonal_architecture.md)
-* [Layered Architecture](layered_architecture.md)
-* [Modular Monolithic Architecture](modular_monolithic_architecture.md)
-* [Microservice Architecture](microservice_architecture.md)
-* [Event-driven Architecture](event_driven_architecture.md)
-* [DDD](ddd.md)
-* [Patterns](https://github.com/kamranahmedse/design-patterns-for-humans)
-* [Proxy server](proxy_server.md)
-* [Anti-patterns](anti_patterns.md)
-
-## Code Review
-* [Code Review Developer Guide](code_review.md)
-
-## Coding
-* [Coding Standard and Best Practices](code_standards.md)
-  
 ## Principles
-* Stability
-* Performance
-* Durability
-* Scalability
-* Flexibility
-* Encapsulation
-* Testability
-* Separation of Concerns
-* Reduced Complexity (DI)
-* Concentrate on Domain/Business
-* Independence from framework, DB, UI, external service
 
-## Read 
-* [Udi Dahan ADSD](https://coursehunter.net/course/prodvinutaya-arhitektura-raspredelennyh-sistem?lesson=1)
-  * [Note 1](https://www.michalbialecki.com/2020/06/23/what-i-learned-from-2500-udi-dahan-course/)
-  * [Note 2](https://hackmd.io/@pierodibello/Advanced-Distributed-System-Design)
-  * [Note 3](https://gist.github.com/craigtp/05a82b51557adc278acd71b5a2b88905)
-  * [files](https://disk.yandex.ru/d/ADu9XGpvTCzOCA)
-  * [script](docs/adsd.sh)
-* [awesome-scalability](https://github.com/binhnguyennus/awesome-scalability)
-* [awesome-design-patterns](https://github.com/DovAmir/awesome-design-patterns)
-* [professional-programming](https://github.com/charlax/professional-programming)
-* [system-design](https://github.com/karanpratapsingh/system-design)
-* [CleanArchitecture](https://github.com/ardalis/CleanArchitecture)
-* [Awesome CTO](https://github.com/kuchin/awesome-cto)
-* [Микрослужбы .NET: Архитектура контейнерных приложений](https://learn.microsoft.com/ru-ru/dotnet/architecture/microservices/)
-* [Azure application architecture fundamentals](https://learn.microsoft.com/en-us/azure/architecture/guide/)
+Foundational principles that guide software design decisions.
+
+| Principle | Description |
+|-----------|-------------|
+| [SOLID](solid.md) | Five principles for object-oriented design |
+| [DIP](dip.md) | Dependency Inversion Principle in depth |
+| [GRASP](grasp.md) | General Responsibility Assignment patterns |
+
+**Core Values:**
+- Stability, Performance, Durability
+- Scalability, Flexibility, Encapsulation
+- Testability, Separation of Concerns
+- Independence from framework, DB, UI, external services
+
+---
+
+## Architectural Patterns
+
+Patterns for structuring applications at different scales.
+
+### Application Architecture
+
+| Pattern | When to Use |
+|---------|-------------|
+| [Layered Architecture](layered_architecture.md) | Simple apps, clear separation of concerns |
+| [Clean Architecture](clean_architecture.md) | Complex business logic, long-term projects |
+| [Hexagonal Architecture](hexagonal_architecture.md) | Multiple integrations, testability focus |
+| [Modular Monolithic](modular_monolithic_architecture.md) | Growing apps, pre-microservices stage |
+
+### Distributed Systems
+
+| Pattern | When to Use |
+|---------|-------------|
+| [Microservice Architecture](microservice_architecture.md) | Large teams, independent deployments |
+| [Event-driven Architecture](event_driven_architecture.md) | Async processing, loose coupling |
+| [Event Sourcing](event_sourcing.md) | Audit trails, temporal queries |
+
+### Domain Modeling
+
+| Pattern | When to Use |
+|---------|-------------|
+| [DDD](ddd.md) | Complex domains, collaborative design |
+| [Design Patterns](https://github.com/kamranahmedse/design-patterns-for-humans) | Common OOP solutions |
+| [Anti-patterns](anti_patterns.md) | What to avoid |
+
+---
+
+## Data & Integration Patterns
+
+Patterns for handling data flow and system integration.
+
+### Command/Query Patterns
+
+| Pattern | Description |
+|---------|-------------|
+| [CQS](cqs.md) | Method-level command/query separation |
+| [CQRS](cqrs.md) | Architectural-level read/write separation |
+
+### API & Communication
+
+| Topic | Description |
+|-------|-------------|
+| [API Design](api_design.md) | REST, GraphQL, gRPC best practices |
+| [Proxy Server](proxy_server.md) | Forward/Reverse proxy, Load balancing |
+| [Concurrency Patterns](concurrency_patterns.md) | Locking, distributed coordination |
+
+---
+
+## Quality & Operations
+
+Ensuring reliability, security, and maintainability.
+
+| Topic | Description |
+|-------|-------------|
+| [Testing Strategy](testing_strategy.md) | Test types, coverage, best practices |
+| [Observability](observability.md) | Logging, Metrics, Tracing |
+| [Security Architecture](security.md) | Authentication, Authorization, OWASP |
+
+---
+
+## Development Practices
+
+Standards and processes for development teams.
+
+| Topic | Description |
+|-------|-------------|
+| [Code Standards](code_standards.md) | PSR-12, naming, PHPDoc |
+| [Code Review Guide](code_review.md) | Review checklist, best practices |
+
+---
+
+## Resources
+
+### Courses
+- [Udi Dahan - Advanced Distributed Systems Design](https://coursehunter.net/course/prodvinutaya-arhitektura-raspredelennyh-sistem?lesson=1)
+  - [Notes 1](https://www.michalbialecki.com/2020/06/23/what-i-learned-from-2500-udi-dahan-course/) | [Notes 2](https://hackmd.io/@pierodibello/Advanced-Distributed-System-Design) | [Notes 3](https://gist.github.com/craigtp/05a82b51557adc278acd71b5a2b88905)
+
+### Curated Lists
+- [awesome-scalability](https://github.com/binhnguyennus/awesome-scalability)
+- [awesome-design-patterns](https://github.com/DovAmir/awesome-design-patterns)
+- [professional-programming](https://github.com/charlax/professional-programming)
+- [system-design](https://github.com/karanpratapsingh/system-design)
+
+### Reference Architectures
+- [Clean Architecture (.NET)](https://github.com/ardalis/CleanArchitecture)
+- [.NET Microservices Architecture](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/)
+- [Azure Architecture Guide](https://learn.microsoft.com/en-us/azure/architecture/guide/)
+
+### Leadership
+- [Awesome CTO](https://github.com/kuchin/awesome-cto)
+
+---
+
+## License
+
+This repository is for educational purposes.

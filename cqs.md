@@ -22,10 +22,18 @@ But, this is fairly complex and leans more to [CQRS](cqrs.md)
 * Systems with high readability
 
 ## When NOT to implement
-* When a single operation must both modify and return data (e.g., stack.pop())
 * Simple scripts where separation adds unnecessary complexity
 * Performance-critical paths where the overhead of separation is unacceptable
 * Legacy systems where refactoring to CQS would require extensive changes
+
+### Known Exceptions
+Bertrand Meyer (the author of CQS) acknowledged that some operations naturally combine query and command aspects. The classic example is `stack.pop()` which both returns a value AND modifies state. These are acceptable exceptions to the principle:
+* `pop()` - removes and returns element
+* `dequeue()` - removes and returns from queue
+* `getAndIncrement()` - atomic operations
+* `compareAndSwap()` - concurrent programming primitives
+
+In these cases, separating into two operations would either be impractical or introduce race conditions.
 
 ## Related Patterns
 * [CQRS](cqrs.md) - Extended version of CQS applied at architectural level

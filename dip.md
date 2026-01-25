@@ -16,18 +16,77 @@ Loose coupling, where you have minimal interdependence between components or mod
 
 ### CODE
 
-```
-final readonly class HighLevelComponent {
-    private final LowLevelComponentInterface; // dependency
-}
-
-interface LowLevelComponentInterface 
-{ 
-}
-
-final readonly class LowLevelComponent implements LowLevelComponentInterface 
+```php
+// High-level module depends on ABSTRACTION, not concrete implementation
+final readonly class HighLevelComponent
 {
+    public function __construct(
+        private LowLevelComponentInterface $dependency,
+    ) {
+    }
+
+    public function execute(): void
+    {
+        $this->dependency->doSomething();
+    }
 }
+
+// Abstraction (interface) - owned by the high-level module
+interface LowLevelComponentInterface
+{
+    public function doSomething(): void;
+}
+
+// Low-level module implements the abstraction
+final readonly class LowLevelComponent implements LowLevelComponentInterface
+{
+    public function doSomething(): void
+    {
+        // Implementation details
+    }
+}
+
+// Another implementation can be easily swapped
+final readonly class AnotherLowLevelComponent implements LowLevelComponentInterface
+{
+    public function doSomething(): void
+    {
+        // Different implementation
+    }
+}
+```
+
+### Practical Example
+
+```php
+// Without DIP - tightly coupled
+final readonly class OrderService
+{
+    public function __construct(
+        private MySQLOrderRepository $repository, // Depends on concrete class!
+    ) {
+    }
+}
+
+// With DIP - loosely coupled
+interface OrderRepositoryInterface
+{
+    public function save(Order $order): void;
+    public function findById(OrderId $id): ?Order;
+}
+
+final readonly class OrderService
+{
+    public function __construct(
+        private OrderRepositoryInterface $repository, // Depends on abstraction
+    ) {
+    }
+}
+
+// Now we can have multiple implementations
+final readonly class MySQLOrderRepository implements OrderRepositoryInterface { /* ... */ }
+final readonly class RedisOrderRepository implements OrderRepositoryInterface { /* ... */ }
+final readonly class InMemoryOrderRepository implements OrderRepositoryInterface { /* ... */ } // For tests
 ```
 
 ### Read

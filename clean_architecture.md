@@ -54,5 +54,59 @@ Clean Architecture, introduced by Robert C. Martin (also known as Uncle Bob), is
 * Implement Repositories (Data Access Layer)
 * Use DI for Flexibility
 
+## Screaming Architecture
+
+Uncle Bob emphasizes that the architecture of a project should "scream" its purpose. Looking at the top-level directory structure should immediately tell you what the application does, not what framework it uses.
+
+### Bad - Framework-centric structure
+```
+src/
+├── Controller/
+├── Entity/
+├── Repository/
+├── Service/
+├── Form/
+└── EventListener/
+```
+This screams "Symfony" or "Laravel", not the domain.
+
+### Good - Domain-centric structure
+```
+src/
+├── Order/                    # Bounded Context
+│   ├── Domain/
+│   │   ├── Order.php
+│   │   ├── OrderItem.php
+│   │   ├── OrderStatus.php
+│   │   └── OrderRepositoryInterface.php
+│   ├── Application/
+│   │   ├── CreateOrder/
+│   │   │   ├── CreateOrderCommand.php
+│   │   │   └── CreateOrderHandler.php
+│   │   └── CancelOrder/
+│   │       ├── CancelOrderCommand.php
+│   │       └── CancelOrderHandler.php
+│   ├── Infrastructure/
+│   │   ├── PostgresOrderRepository.php
+│   │   └── OrderEventPublisher.php
+│   └── Presentation/
+│       └── Api/
+│           ├── CreateOrderAction.php
+│           └── GetOrderAction.php
+├── Inventory/                # Another Bounded Context
+│   ├── Domain/
+│   ├── Application/
+│   └── Infrastructure/
+├── Customer/
+└── Payment/
+```
+This screams "E-commerce system with Orders, Inventory, Customers, and Payments".
+
+### Benefits
+* New developers immediately understand what the system does
+* Domain experts can navigate the codebase
+* Changes to one bounded context don't affect others
+* Easy to extract microservices later if needed
+
 ## Summary
 Clean Architecture encourages creating an application independent of frameworks, easy to maintain, and flexible to change. By clearly defining boundaries between different layers and ensuring dependencies flow inward, you make your application robust and adaptable to changes in requirements or technology.
