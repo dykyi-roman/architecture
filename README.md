@@ -106,6 +106,38 @@ Standards and processes for development teams.
 
 ---
 
+## Tools
+
+### Claude Code Extension for Architecture
+
+If you use [Claude Code](https://claude.ai/claude-code), consider installing the **[Awesome Claude Code](https://github.com/dykyi-roman/awesome-claude-code)** extension:
+
+```bash
+composer require dykyi-roman/awesome-claude-code
+```
+
+**Why use it with this guide?**
+
+This extension transforms theoretical knowledge from this repository into practical automation:
+
+| Feature | Benefit |
+|---------|---------|
+| **Architecture Audit** | Automatically verify your code against DDD, Clean Architecture, Hexagonal, CQRS patterns |
+| **PSR Compliance** | Check adherence to PSR-1, PSR-4, PSR-12 standards |
+| **Code Generation** | Generate DDD components (Entity, ValueObject, Aggregate, Repository) from templates |
+| **CQRS Scaffolding** | Create Commands, Queries, UseCases, ReadModels with proper structure |
+| **Stability Patterns** | Generate Circuit Breaker, Retry, Rate Limiter implementations |
+| **Documentation Audit** | Ensure code documentation meets quality standards |
+
+**What's included:**
+- 🎯 **8 commands** — slash commands for audits and generation
+- 🤖 **11 agents** — specialized sub-agents for different architectural tasks
+- 📚 **73 skills** — knowledge bases, generators, and templates
+
+The extension helps enforce the architectural principles described in this guide directly in your development workflow with Claude Code.
+
+---
+
 ## Resources
 
 ### Courses
