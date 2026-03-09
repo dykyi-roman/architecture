@@ -2,6 +2,27 @@
 
 A comprehensive guide to software architectural patterns, principles, and best practices for building scalable, maintainable applications.
 
+---
+
+<table>
+  <tr>
+    <td width="30%" align="center">
+      <a href="https://dykyi-roman.github.io/projects/architecture-visualizer">
+        <img src="https://dykyi-roman.github.io/projects/architecture-visualizer/img.svg" alt="Visualizer Preview" width="200"/>
+      </a>
+    </td>
+    <td width="70%">
+      <h3>Interactive Architecture Visualizer</h3>
+      <p>Explore all architectural patterns and their relationships through an interactive visual map.</p>
+      <a href="https://dykyi-roman.github.io/projects/architecture-visualizer">
+        <img src="https://img.shields.io/badge/Open-Architecture%20Visualizer-blue?style=for-the-badge&logo=github" alt="Architecture Visualizer"/>
+      </a>
+    </td>
+  </tr>
+</table>
+
+---
+
 ## Table of Contents
 
 - [Principles](#principles)
